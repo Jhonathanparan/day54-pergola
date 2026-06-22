@@ -391,9 +391,9 @@ function buildFindings() {
     findingHeader("05", "Leasing Funnel Is Invisible — Prospects Enter RM Only at Application", "High Impact"),
     spacer(40),
     findingTable([
-      { label: "Source", value: "Minneapolis PM (Jocelyn) — discovery call, Jun 17" },
-      { label: "The pain", value: "Inbound inquiries from prospective renters come through Zillow. Those prospects are not entered into Rent Manager until they formally apply through the website. Everything between first contact and application — inquiry volume, response time, showing scheduling, no-shows, dropped leads — is invisible. There is no way to see how many people expressed interest, how quickly they were contacted, or where they fell out of the process." },
-      { label: "Why it matters now", value: "Brian identified a live vacancy problem in Rochester and said directly that he has no data to diagnose it — he does not know if it is a marketing problem, a response-speed problem, or a showing-to-lease conversion problem. The Minneapolis workflow confirms this is not a Rochester-specific issue; it is a company-wide pattern. The leasing funnel simply does not exist in RM." },
+      { label: "Source", value: "Minneapolis PM (Jocelyn) — discovery call, Jun 17; St. Paul PM (Bobby) — discovery call, Jun 19" },
+      { label: "The pain", value: "Inbound inquiries come through Zillow and Apartments.com. Prospects are not entered into Rent Manager until they formally apply. Everything between first contact and application — inquiry volume, response time, showing scheduling, no-shows, dropped leads — is invisible. Both the Minneapolis PM (Jocelyn) and the St. Paul PM (Bobby) independently confirmed this pattern: both maintain separate Google Sheets to log showings because no equivalent exists in RM. There is no way to see how many people expressed interest, how quickly they were contacted, or where they fell out of the process." },
+      { label: "Why it matters now", value: "Brian identified a live vacancy problem in Rochester and said directly that he has no data to diagnose it — he does not know if it is a marketing problem, a response-speed problem, or a showing-to-lease conversion problem. This is now confirmed across multiple locations: the Minneapolis PM and the St. Paul PM both independently described the same workaround (personal Google Sheets for showing logs). The leasing funnel does not exist in RM, and the off-system workaround is company-wide." },
       { type: "bullets", label: "What RM can do", values: [
         "Rent Manager has a Prospects module (Rental Info → Prospects) and a Prospect Leasing Board designed exactly for this — logging inquiries with a source, tracking contact attempts, and advancing leads through stages to application.",
         "If prospects were entered at first contact rather than at application, RM would generate the funnel data Brian needs: leads by source, contact speed, showing conversion, application rate, move-in rate."
@@ -469,8 +469,8 @@ function buildFindings() {
     findingHeader("09", "Turnover Tracked in External Excel; Make Ready Board Owned but Not Yet Activated", "High Impact"),
     spacer(40),
     findingTable([
-      { label: "Source", value: "Rochester PM (Darcy) interview; live RM system review (Jun 18–19); Brian call (Jun 18)" },
-      { label: "The pain", value: "Darcy runs the entire turnover process on a personal Excel sheet, manually copy-pasting outgoing and incoming tenant details and every step in between from Rent Manager. The work lives outside RM, so no one else can see where a unit stands in its turn, and the record sits in one person's file." },
+      { label: "Source", value: "Rochester PM (Darcy) — interview Jun 18; St. Paul PM (Bobby) — interview Jun 19; live RM system review (Jun 18–19); Brian call (Jun 18)" },
+      { label: "The pain", value: "Off-system turnover tracking is confirmed across multiple locations. Darcy (Rochester, 147 units across 7 buildings) runs the entire turnover process on a personal Excel sheet, manually copy-pasting tenant details and every step from Rent Manager. Bobby (St. Paul, 12 units) does the same in a Google Sheet. In both cases the work lives outside RM, no one else can see where a unit stands in its turn, and the record sits on one person's device. Darcy's underlying need is also partly a reporting gap: a native RM report that surfaces her turnover columns automatically would meet her core ask even before the Make Ready Board is fully activated." },
       { type: "bullets", label: "What exists in RM", values: [
         "The Make Ready module is included in Pergola's contract and its interface is modern and capable.",
         "Each make-ready item is a full Service Issue: Action, Description, Category, Priority, Status, Assigned To, Vendor, due-date and scheduled-date offsets, notify-when-ready, and a nested checklist.",
@@ -491,7 +491,7 @@ function buildFindings() {
         "Once validated, extend to the other properties and the Minneapolis/St. Paul side."
       ]},
       { label: "Effort to fix", value: "Medium and front-loaded. Resolving the permissions and scoping and configuring assignable Maintenance Techs is the real work; once done, building templates and running turns is low-effort and ongoing. No system limitation found; this is access and configuration, not capability." },
-      { label: "Status / open item", value: "In progress, pending RM rep. The multi-unit view and automatic tenant pull are not yet verified. Confirm which account or location holds the existing template and the populated lists; ties to Finding 07." }
+      { label: "Status / open item", value: "In progress, pending RM rep. The multi-unit view and automatic tenant pull are not yet verified — both Bobby (St. Paul) and Darcy (Rochester) cite these as prerequisites for adoption. Confirm which account or location holds the existing template and the populated lists; ties to Finding 07. Quick win path: explore whether a native RM turnover report can be generated from existing data to meet Darcy's core need while the board permissions are resolved." }
     ]),
     spacer(200),
 

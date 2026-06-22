@@ -246,14 +246,71 @@ Nachshon sync, Jun 18 (strategic):
 - Utility anomaly alerting likely the headline opportunity (Finding 01).
 - Do not recommend platform migration (legacy desktop vs web) and do not recommend leaving RM.
 
-### E. Open follow-ups (running)
+### E. Bobby discovery call — St. Paul PM (Jun 19, 12:10 PM)
 
-- [ ] Send RM rep email - fill rep name, confirm account #4046. Two drafts ready: "Make Ready + utilities" and "Full punch-list."
+Bobby manages ~12 units in St. Paul under Brian. Originally scheduled for Jun 20; happened Jun 19.
+
+- **Turnover:** Personal Google Sheet tracking all 12 properties (tenant, unit, move-out/in dates, maintenance clean status, notes). All underlying data already exists in RM but no native report surfaces it together. Open to the Make Ready Board if it covers all properties in one clean view and auto-pulls data. Direct parallel to Darcy (Rochester/Excel) — confirms off-system turnover tracking on at least two of three sides.
+- **Leasing funnel:** Leads from Zillow (primary) and Apartments.com (student properties near U of St. Thomas). Prospects enter RM only at formal application. Maintains a separate Google Sheet for showing logs (name, phone, email, date, location) — direct parallel to Minneapolis/Jocelyn. Confirms Finding 05 cross-location.
+- **Maintenance intake:** ~75% of work orders submitted through tenant portal (healthy). 25% via voicemail or email, causing delays before work orders are created. Parts purchased at Home Depot; receipts go to Chad; NOT logged in work orders.
+- **Communication logging:** Email correspondence not systematically logged in RM; only critical threads entered manually. Has to search Outlook for historical context.
+- **Platform preference:** Prefers desktop RM12 over the web version and mobile app.
+- **Market rent:** No RM tool; manually checks Zillow/Apartments.com and builds spreadsheets. RM market rent field updated occasionally but not systematically.
+
+Impact on findings:
+- Finding 05: Cross-location confirmed (Minneapolis/Jocelyn + St. Paul/Bobby). Both use Google Sheets for showing tracking; both enter prospects in RM only at application. Strengthens the finding significantly.
+- Finding 09: Off-system turnover now confirmed on two of three sides (Rochester/Excel + St. Paul/Google Sheets). Bobby open to Make Ready Board if multi-property view and auto-pull criteria are met.
+- New finding candidate: Market rent visibility — no RM tool, manual spreadsheets. Decide scope.
+- New finding candidate: Parts not logged in work orders — confirmed by Bobby, Chris, and Mark.
+
+### F. Mark maintenance interview — NE Minneapolis (Jun 19, 1:16 PM)
+
+Mark covers ~11 units in NE Minneapolis including St. Anthony Village; occasional Rochester trips. Different from Chris (Crystal + Bloomington).
+
+- **Work order intake:** ~50/50 from Jocelyn texts and resident portal submissions. Bloomington work orders come through RM and get forwarded to Chris.
+- **Parts / inventory:** Dedicated parts rooms per building. Restocking: buys multiples when down to last unit. Preferred suppliers: Pro Supply (primary since ~2020 — plumbing, cabinetry, remodel parts), Menards (preferred over Home Depot for selection/price), appliance parts store as needed. Goal: fix within the hour using on-hand stock.
+- **Appliance standardization:** Hotpoint fridges (stocks evaporator motors — known failure point); Frigidaire ranges (considering switching to Hotpoint for repairability); Frigidaire dishwashers. Sticks to same make/model on replacements to simplify stocking and parts.
+- **Turnover inspection:** Visual walkthrough by room, paper supply/replacement list during walkthrough, flags in-stock vs. needs-ordering. Consistent process across all properties.
+- No formal daily log; work is reactive and memory-driven.
+- Confirmed an inventory tracking system that monitors stock levels and automates reordering would make his life easier.
+
+Impact on findings:
+- Finding 04: Mark's intake is better than Chris's (~half portal-first) but the "no formal log, memory-driven" pattern holds. Second maintenance-side data point.
+- Parts procurement: Mark has a more systematic approach than Chris (dedicated rooms, consistent suppliers, appliance standardization) but still paper-based. Third data point for the "parts not in work orders" pattern alongside Chris and Bobby.
+
+### G. Darcy call supplemental — Rochester PM (Jun 18, 12:05 PM)
+
+Supplemental detail from Granola not previously in PROGRESS.md (core finding already captured in Section 12A).
+
+- **Core ask (clarified):** Darcy's primary need is a reporting gap — a RM report or export that replicates her turnover spreadsheet automatically — not necessarily the Make Ready Board workflow tool. The data exists in RM; it just doesn't surface in the right shape. This matters for the recommendation: offer both paths.
+- **Non-English-speaking tenants:** Darcy submits work orders on their behalf; English-speaking tenants use RM directly.
+- **Mobile access issue:** Bookmarked RM link stopped working on her phone browser; can't log in from mobile. Small quick win to flag to the RM rep.
+- **Prospects:** Not in RM until formal application. Apartments.com primary (Zillow paused, returning soon). Confirms Finding 05 on Rochester side.
+- **Logging discipline:** Logs everything in RM even for urgent jobs, citing audit risk if work history looks sparse. Good existing habit.
+
+Impact on findings:
+- Finding 09 nuance: Recommendation should offer two paths — (1) activate the Make Ready Board for the full workflow benefit, gated on permissions resolution, AND (2) produce a native RM turnover report as a faster quick win using existing data. Darcy's core need is the report; the board is the longer-term upgrade.
+- Quick win candidate: Fix Darcy's mobile RM login (bookmarked link broken) — flag to RM rep.
+
+### H. Brian utility/RUBS call supplemental (Jun 17, 5:34 PM)
+
+Additional context from Granola; predates the Chad utility call (Jun 19).
+
+- RM utilities module empty confirmed (reconfirms Finding 01).
+- RUBS on St. Paul/Rochester via Zego; NOT on Minneapolis — Joe's explicit choice. Brian: tenants waste less when they pay directly. Joe: RUBS is zero-sum and frustrates tenants. Structural drift; not a Day54 recommendation either way.
+- Billing period inconsistency: RM utility cost entries include charge, date, and location but NOT billing period range or consumption units, making period-over-period comparison unreliable. Configuring unit-level tracking may resolve this.
+- RM desktop-to-web migration: Brian and Joe are personally getting comfortable with the web version before rolling it to staff. When recommending RM features, confirm which version staff will actually use.
+- Consolidation: Brian had already left a message with RM's migration team by Jun 17 — before the formal Caitlin call on Jun 22.
+
+### I. Open follow-ups (running)
+
+- [ ] Send RM rep email (Caitlin's email confirmed: caitlyn.carry@rentmanager.com). Account #4046. Punch-list covers: Make Ready Board permissions, rmVoIP sync, utility API/Open Access, Darcy mobile login.
 - [ ] Chad -> Zego/PayLease on exporting/integrating consumption data; Yonatan may get direct Zego access via Brian.
-- [ ] St. Paul PM (Bobby) discovery call - Fri Jun 20, 12pm. Probes: utility setup at move-in, after-hours dispatch, leasing funnel (Finding 05), turnover tracking (Finding 09).
-- [ ] Verify multi-unit board view + automatic tenant pull once permissions resolved.
-- [ ] Decide whether to build revised Finding 09 + new findings into build_findings.js now, or hold as text until rep reply + Bobby call.
-- [ ] Decide scope on Chris's items (parts procurement, onboarding printout, appliance standardization, turnover scope) - in-scope findings vs phase-2/out-of-scope.
+- [ ] Verify Make Ready Board multi-unit view + automatic tenant pull once permissions resolved. Bobby (St. Paul) and Darcy (Rochester) both cite these as adoption prerequisites.
+- [ ] Market rent visibility — decide if in-scope as a finding (Bobby surfaced; no RM tool, manual spreadsheets).
+- [ ] Parts not logged in work orders — confirmed by Bobby, Chris, and Mark. Decide scope (finding vs. operational note).
+- [ ] Darcy mobile RM login broken — flag to RM rep.
+- [ ] Decide scope on Chris's items (resident onboarding printout, appliance standardization, turnover scope) — in-scope findings vs. phase-2/out-of-scope.
 - [ ] Cleanup: remove/deactivate `ZZ-TEST-Turnover`.
 
 ---
@@ -262,7 +319,7 @@ Nachshon sync, Jun 18 (strategic):
 
 ### A. RM rep call (Caitlin, LCS) - location consolidation feasibility
 
-Source: call with Caitlin at LCS (the company behind Rent Manager) re: consolidating the two RM locations into one.
+Source: call with Caitlin (Kattelynn) Carry at LCS (caitlyn.carry@rentmanager.com) re: consolidating the two RM locations into one.
 
 **Locations confirmed:**
 - Default/primary: St. Paul w/ suburbs (SPL)
