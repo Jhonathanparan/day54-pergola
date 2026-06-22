@@ -304,7 +304,7 @@ Additional context from Granola; predates the Chad utility call (Jun 19).
 
 ### I. Open follow-ups (running)
 
-- [ ] Send RM rep email (Caitlin's email confirmed: caitlyn.carry@rentmanager.com). Account #4046. Punch-list covers: Make Ready Board permissions, rmVoIP sync, utility API/Open Access, Darcy mobile login.
+- [x] RM rep email sent to Camille Brigano (camille.brigano@rentmanager.com). Covers: Make Ready Board permissions (Finding 09), utility consumption path into RM (Finding 01), rmVoIP call-linking issue (Finding 10). Awaiting reply. Note: Camille is the RM rep for operational/feature questions; Caitlin Carry (caitlyn.carry@rentmanager.com) is the separate LCS migration contact for the consolidation track only.
 - [ ] Chad -> Zego/PayLease on exporting/integrating consumption data; Yonatan may get direct Zego access via Brian.
 - [ ] Verify Make Ready Board multi-unit view + automatic tenant pull once permissions resolved. Bobby (St. Paul) and Darcy (Rochester) both cite these as adoption prerequisites.
 - [ ] Market rent visibility — decide if in-scope as a finding (Bobby surfaced; no RM tool, manual spreadsheets).
@@ -319,7 +319,7 @@ Additional context from Granola; predates the Chad utility call (Jun 19).
 
 ### A. RM rep call (Caitlin, LCS) - location consolidation feasibility
 
-Source: call with Caitlin (Kattelynn) Carry at LCS (caitlyn.carry@rentmanager.com) re: consolidating the two RM locations into one.
+Source: call with Caitlin (Kattelynn) Carry at LCS (caitlyn.carry@rentmanager.com) — LCS migration team, consolidation track only. Separate from Camille Brigano (RM rep, operational questions).
 
 **Locations confirmed:**
 - Default/primary: St. Paul w/ suburbs (SPL)
