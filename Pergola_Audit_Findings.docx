@@ -1,0 +1,175 @@
+**PERGOLA MANAGEMENT**
+
+Operations & Technology Audit
+
+Findings & Recommendations
+
+| **Prepared by** | Day54, LLC |
+| --- | --- |
+| **Prepared for** | Brian Pergament, Pergola Management |
+| **Date** | June 2026  [DRAFT — IN PROGRESS] |
+| **Confidential** | Internal use only |
+
+# **01  ****Executive Summary**
+
+Day54 was engaged by Pergola Management to conduct a focused 2–3 week operations and technology audit. The engagement centers on how Pergola's team uses Rent Manager — identifying underused features, workflow inconsistencies, and opportunities to operate more efficiently without adding complexity or cost.
+
+Pergola is a well-run, intentionally right-sized property management company of approximately 600 units across Minneapolis/St. Paul and Rochester. The business is not seeking growth; the goal is to run current operations better, with greater visibility and less reliance on individual knowledge and manual workarounds.
+
+The audit is examining four lanes:
+
+- Rent Manager feature adoption and underutilized modules
+
+- Workflow consistency across the two-location structure (St. Paul and Minneapolis)
+
+- Maintenance closeout and turnover documentation
+
+- Utility trend reporting and data visibility
+
+This document captures findings as they are confirmed and will be finalized with a prioritized roadmap and implementation recommendations upon completion of all interviews and system review.
+
+| **Audit Lane** | **Status** |
+| --- | --- |
+| Rent Manager utility module audit | Complete — Finding 01 logged |
+| GL / utility expense coding review | Complete — Finding 06 logged |
+| Software licensing & spend review | Complete — Findings 07–08 logged |
+| RM feature adoption walkthrough | In progress — paused at Inspections |
+| Maintenance closeout & turnover review | In progress, Findings 09-10 logged |
+| St. Paul PM discovery call | Scheduled — Fri Jun 20 |
+| Minneapolis PM discovery call (Jocelyn) | Complete — Findings logged |
+| Synthesis & roadmap | Pending findings completion |
+
+# **Software Spend, Reconciled**
+
+The kickoff brief framed Pergola's software spend as roughly $18K/year and "half-used." The billing review confirms the spend is real and accounted for — it is not hidden waste — and clarifies where it goes. London Computer Systems (Rent Manager) bills approximately $14.8K/year directly: a $14.1K/year core platform plus a variable ~$0.7K/year for printed resident notices (VPO). The remainder of the ~$18K figure is the integration partners — AvidXchange (A/P) and Zego/PayLease (tenant payments) — which are billed separately by those vendors, not by LCS.
+
+Two points carry forward into the findings: (1) the subscription spans roughly seven separately-numbered RM accounts, the licensing footprint of the two-location structure (Finding 07); and (2) Rent Manager's AI and automation add-ons — Orion AI, Smart Bills, and Bank Sync — are not currently licensed, which is the relevant baseline if AI-assisted tooling is revisited in a later phase.
+
+# **02  ****Findings**
+
+Each finding is classified by priority:
+
+- Quick Win — implementable by the team directly, low effort, high immediate value
+
+- High Impact — significant operational improvement, may require guidance or outside help to implement
+
+- Strategic — longer-term or architectural; shapes the phase-2 roadmap
+
+| **Finding 01  ****Metered Utilities Module Completely Unused** | **High Impact** |
+| --- | --- |
+
+| **Module** | Services → Metered Utilities |
+| --- | --- |
+| **Observed** | All sub-sections empty: Utilities, Meter Types, Meter Readings, Meter Readings Setup, Meter Readings Statuses, Post RUBS — zero configuration. |
+| **What exists in RM** | Utility provider setup (name, charge type, linked properties, contact, email) Meter Types — define water, gas, electric, etc. Meter Readings — log actual consumption by meter and date Meter Readings Setup & Statuses — workflow and validation rules Post RUBS — ratio utility billing to residents MU Export/Import — bulk data in and out via file Post Utilities — post billed charges to tenant ledgers |
+| **What this means** | Rent Manager is fully equipped to capture utility consumption (gallons, kWh, therms) by property, track it over time, and bill residents via RUBS. None of this has ever been configured. All utility management currently happens through PayLease (RUBS billing) and AvidXchange (vendor bill payment) — with zero consumption data living inside RM. |
+| **The gap** | Without consumption data in RM, there is no way to trend usage, normalize to occupancy, compare year-over-year, or flag an anomaly mid-month. The business is currently reactive — it can see what it paid, but not how much it used or whether that is changing. |
+| **Why it matters** | Utility costs on a 600-unit portfolio are a material expense line — any building trending up without an occupancy or rate explanation is leaking money quietly Concrete example already in the data: Rochester Heights shows roughly a 60% year-over-year increase in gas cost, and there is currently no way to attribute it — rate change, weather, occupancy, or a genuine consumption problem are indistinguishable without usage data RM already has a water-pressure event in its history (referenced by Brian) that should have been detectable as a consumption spike — it wasn't, because the data was never captured Brian expressed direct interest in utility trend visibility as a management metric during the initial call |
+| **Recommendation** | Phase 1 (Quick Win — native RM): Configure utility providers and meter types. Begin logging monthly readings for each property. This alone enables RM's built-in consumption reports and the range-based outlier report at no added cost. Phase 2 (Strategic — build): Pull consumption + occupancy data via RM's Open Access read views or REST API into an external reporting layer. Compute cost-per-occupied-unit, year-over-year by month, with proactive threshold alerts when a building drifts beyond a set range mid-month. This is a contained data-engineering build suited to Day54's capabilities. Faster path identified (Jun 19): consumption data already exists in Zego/PayLease, in a utility recovery performance tab showing provider and sub-metered usage. Rather than only manual meter entry, explore importing that existing usage into RM via MU Import From File or the API, pending confirmation that Zego can export it and that RM's API / Open Access is enabled. Prerequisite: Confirm whether API / Open Access is enabled on Pergola's RM subscription before scoping the Phase 2 build. |
+| **Effort to fix** | Phase 1: Low — data entry and configuration, no technical complexity. Phase 2: Medium — requires API access, a small data pipeline, and a reporting surface. |
+
+| **Finding 02  ****Residents Cannot View Signed Leases in the Tenant Portal** | **Quick Win** |
+| --- | --- |
+
+| **Source** | Minneapolis PM (Jocelyn) — discovery call, Jun 17 |
+| --- | --- |
+| **The pain** | After a lease is signed, residents cannot access it through the Rent Manager tenant portal. Jocelyn has to email a copy to every resident manually after each signing. It is a small recurring task that happens every time a lease is executed or renewed. |
+| **What RM can do** | The tenant portal is designed to surface lease documents to residents. Blue Moon eSignatures (visible in RM's Communication menu) handles the signing workflow. The likely issue is that signed documents are not being pushed back to the portal after completion — a configuration step that may simply have been missed during setup. |
+| **Recommendation** | Check the Blue Moon eSignatures integration settings to confirm whether completed documents are set to post back to the tenant portal automatically. If not enabled, turn it on. Residents get self-serve access to their lease; Jocelyn stops emailing PDFs manually. Confirm with RM support if the setting is not immediately obvious — this is a known configuration point. |
+| **Effort to fix** | Very low — likely a single settings toggle. No retraining needed. |
+
+| **Finding 03  ****Unit Transfer Lease Re-Issuance Requires Owner Workaround** | **Quick Win** |
+| --- | --- |
+
+| **Source** | Minneapolis PM (Jocelyn) — discovery call, Jun 17 |
+| --- | --- |
+| **The pain** | When an existing resident moves to a different unit within the portfolio, Rent Manager pulls the old unit's information when Jocelyn attempts to issue the new lease. She cannot complete the process herself — Joe has to step in and manually work around the system to push it through. This creates a dependency on Joe for what should be a routine task, and slows the transfer process. |
+| **What this suggests** | This is likely a known workflow limitation in how RM handles mid-tenancy unit transfers, or a configuration gap in how the lease template is linked to unit records. It may have a documented resolution via RM support or a specific sequence of steps that avoids the conflict. |
+| **Recommendation** | Flag this specific scenario to Pergola's Rent Manager rep and ask whether there is a supported workflow for intra-portfolio unit transfers. If a resolution exists, document the correct steps so Jocelyn can handle transfers independently without involving Joe. If it is a product limitation, log it as a known workaround so it is at least consistent and understood. |
+| **Effort to fix** | Low — a support conversation and documentation task. No system changes likely needed. |
+
+| **Finding 04  ****Urgent Maintenance Requests Bypass Rent Manager Entirely** | **High Impact** |
+| --- | --- |
+
+| **Source** | Minneapolis PM (Jocelyn) — discovery call, Jun 17 |
+| --- | --- |
+| **The pain** | When a maintenance issue is urgent, residents text or call Jocelyn directly. She passes it to the maintenance team by text. The job gets handled, but by the time anyone thinks to log it in Rent Manager, the moment has passed — minor jobs often never get logged at all. Jocelyn also has limited visibility into how the maintenance team closes out work orders on their end, so she cannot tell from RM whether a job has actually been completed and documented. |
+| **The gap** | Urgent work — which by definition involves the most time-sensitive and potentially liability-relevant repairs — is the least likely to leave a paper trail. If a resident later disputes a repair, or the same issue recurs, there may be no record that anything was done. This is the same documentation risk Brian flagged in the initial call. |
+| **Recommendation** | Establish a simple rule: even urgent jobs get a work order opened in RM, even if it is created after the fact the same day. A one-line note and a status of Completed is enough to close the gap. Investigate whether RM's mobile experience (or a lightweight mobile entry point) makes it easier for the maintenance team to log jobs from the field, reducing the friction that causes logging to be skipped. Review the maintenance team's current RM habits directly — Jocelyn does not know how their closures appear in the system, which itself indicates a visibility gap worth closing. |
+| **Effort to fix** | Low on process (a team agreement and short training), medium if mobile access needs to be configured or improved. |
+
+| **Finding 05  ****Leasing Funnel Is Invisible — Prospects Enter RM Only at Application** | **High Impact** |
+| --- | --- |
+
+| **Source** | Minneapolis PM (Jocelyn) — discovery call, Jun 17 |
+| --- | --- |
+| **The pain** | Inbound inquiries from prospective renters come through Zillow. Those prospects are not entered into Rent Manager until they formally apply through the website. Everything between first contact and application — inquiry volume, response time, showing scheduling, no-shows, dropped leads — is invisible. There is no way to see how many people expressed interest, how quickly they were contacted, or where they fell out of the process. |
+| **Why it matters now** | Brian identified a live vacancy problem in Rochester and said directly that he has no data to diagnose it — he does not know if it is a marketing problem, a response-speed problem, or a showing-to-lease conversion problem. The Minneapolis workflow confirms this is not a Rochester-specific issue; it is a company-wide pattern. The leasing funnel simply does not exist in RM. |
+| **What RM can do** | Rent Manager has a Prospects module (Rental Info → Prospects) and a Prospect Leasing Board designed exactly for this — logging inquiries with a source, tracking contact attempts, and advancing leads through stages to application. If prospects were entered at first contact rather than at application, RM would generate the funnel data Brian needs: leads by source, contact speed, showing conversion, application rate, move-in rate. |
+| **Recommendation** | Begin using RM's Prospects module to log every inbound inquiry at first contact, with the lead source recorded (Zillow, website, referral, etc.). Use the Prospect Leasing Board to track stage progression — inquiry, contacted, showing scheduled, showing completed, applied. This single workflow change produces the leasing funnel Brian asked for, using a module already included in their subscription. |
+| **Effort to fix** | Low technically — the module is already there. Medium in practice — requires a habit change for whoever handles inbound leads, and a short training session on the Prospects workflow. |
+
+| **Finding 06  ****Utility Expenses Are Coded Differently on Each Side of the Business** | **High Impact** |
+| --- | --- |
+
+| **Source** | Rent Manager General Ledger / Chart of Accounts review |
+| --- | --- |
+| **Observed** | The two locations post utility expenses to different account structures. The Rochester side uses clean, dedicated accounts that separate the utility types. The Minneapolis/St. Paul side posts to a single catch-all account labeled "Gas & Electric (joint service)," which combines two distinct utilities into one line. |
+| **The gap** | Because the same expense type is coded two different ways, there is no clean cross-portfolio utility view, and on the Minneapolis/St. Paul side gas and electric cannot be separated at all. Any utility trend analysis — including the Finding 01 reporting layer — inherits this inconsistency at the source. |
+| **Why it matters** | This is the GL-level expression of the two-location drift flagged at kickoff: two legacy portfolios merged in 2008, and the chart of accounts drifted apart over time. It is structural, not anyone's fault. It silently undercuts the exact visibility Brian asked for — you cannot trend or compare what you cannot cleanly separate. It is a prerequisite to fix before the Finding 01 phase-2 build, because a reporting layer is only as consistent as the account coding underneath it. |
+| **Recommendation** | Standardize the utility expense account structure across both locations — dedicated per-utility accounts (gas, electric, water/sewer, trash) rather than a combined catch-all. Re-map the Minneapolis/St. Paul catch-all going forward; optionally re-class history if a clean trend baseline is wanted. Sequence this before scoping the Finding 01 phase-2 reporting build. |
+| **Effort to fix** | Low to medium — a chart-of-accounts cleanup and a bookkeeping convention. No system limitation; it is a consistency decision. |
+
+| **Finding 07  ****RM Account Fragmentation Mirrors the Two-Location Split** | **Strategic** |
+| --- | --- |
+
+| **Source** | London Computer Systems / Rent Manager billing invoices (Account #4046) |
+| --- | --- |
+| **Observed** | The subscription carries roughly seven separately-numbered RM accounts: six desktop RM12 accounts (one primary plus five additional at $53/month each) and one Rent Manager Online location. This is the licensing-level footprint of running two legacy portfolios inside one platform. |
+| **What this means** | The fragmented account structure is the same two-location drift seen in workflow (the PM calls) and in GL coding (Finding 06), expressed in the billing. Each additional account is a recurring per-account charge, and the structure is the practical backdrop to the question Brian raised about whether the two locations can be merged on the management side. |
+| **Open question (not yet resolved)** | Can the two locations be merged in Rent Manager without losing history? This is an open investigation item, not a settled recommendation. If they can be consolidated, does that reduce the per-account licensing count, or is the account structure independent of the location structure? |
+| **Recommendation** | Put both questions to Pergola's RM rep directly: merge feasibility without data loss, and any licensing impact of consolidation. Treat merging as an opportunity to raise, not a battle to pick — Brian is open to it in principle but it does not bother either partner day-to-day. Do not recommend a merge until the data-loss question is answered; the cost of getting a migration wrong outweighs the per-account saving. |
+| **Effort to fix** | Investigation only at this stage — a support conversation. Any consolidation itself would be a scoped, carefully-staged migration, not a quick toggle. |
+
+| **Finding 08  ****Printed Resident Notices (VPO) Are a Standing Cost That Could Shift to Portal/Email** | **Quick Win** |
+| --- | --- |
+
+| **Source** | LCS Virtual Post Office (VPO) add-on invoice — the second invoice Brian flagged |
+| --- | --- |
+| **Observed** | A separate ~$58/month (~$700/year, varies with volume) invoice covers roughly 49 batches per month of printed-and-mailed resident notices at about $1 each. This is the "à-la-carte second invoice" Brian asked about. |
+| **Read** | VPO is an actively-adopted, working feature — this is healthy use, not waste. The optimization angle is narrow and concrete: every notice mailed to a resident who already has an email or active tenant portal on file could shift to electronic delivery at near-zero marginal cost. |
+| **Why it matters** | It ties directly to Finding 02 (tenant portal underuse). The more residents are active in the portal, the more of this mailed volume becomes avoidable. It is a small, recurring saving that also reinforces the portal-adoption push rather than competing with it. |
+| **Recommendation** | Review what share of the ~49 monthly VPO notices go to residents who already have a portal account or email on file, and switch those to electronic delivery. Keep mailed delivery for legally-required physical-service notices and for residents without email. Revisit after the Finding 02 portal fix raises portal adoption — the avoidable share should grow. |
+| **Effort to fix** | Low — a delivery-preference review and a default change. No system change required. |
+
+| **Finding 09  ****Turnover Tracked in External Excel; Make Ready Board Owned but Not Yet Activated** | **High Impact** |
+| --- | --- |
+
+| **Source** | Rochester PM (Darcy) interview; live RM system review (Jun 18–19); Brian call (Jun 18) |
+| --- | --- |
+| **The pain** | Darcy runs the entire turnover process on a personal Excel sheet, manually copy-pasting outgoing and incoming tenant details and every step in between from Rent Manager. The work lives outside RM, so no one else can see where a unit stands in its turn, and the record sits in one person's file. |
+| **What exists in RM** | The Make Ready module is included in Pergola's contract and its interface is modern and capable. Each make-ready item is a full Service Issue: Action, Description, Category, Priority, Status, Assigned To, Vendor, due-date and scheduled-date offsets, notify-when-ready, and a nested checklist. A template is a sequenced set of these items that attaches to one or more properties, with an optional Enforce Action Sequence control. This is materially richer than a spreadsheet: every turnover step becomes a dated, assignable, trackable work order shared across the team. |
+| **What the live review found** | The module is owned and the underlying Service Manager taxonomy is populated and actively used: eight make-ready actions and a 21-item issue-category list both exist in Service Setup. But the board has never been activated. On the audit login the template builder's Action, Category, Priority, and Status pickers return no results despite those lists being populated; the Service Setup lists are view-only (no edit control); and the one existing template is locked even with administrator rights. These point to a permissions or account-scoping issue, not absent configuration. |
+| **The gap** | Turnover lives in Excel not by preference but because the in-system tool the team already owns has never been usable to them: its access and scoping were never resolved. The capability is present; the configuration access is not. |
+| **Why it matters** | Turnover documentation is a priority Brian named directly. "Clipboard and experience" loses repair records, so a fix done during a turn cannot be charged back later. Moving turnover onto the board gives shared visibility, preserves the record off any one person's laptop, and ties each step to an assignable, dated work order. If the board's unit view meets Darcy's needs, it replaces the Excel sheet with something the whole team can see. |
+| **Recommendation** | Resolve the access issue with Pergola's RM rep: why the template builder cannot see the populated lists, what role enables editing Service Setup, and how to unlock or relocate the existing template (and which account or location holds it). Once unblocked, build a turnover template (a draft 8-step sequence with date offsets is ready) and attach it to one property. Validation gate: apply it to one live turning unit and confirm two things specifically, a multi-unit line-per-unit view and automatic tenant in/out pull. Adopt only if it genuinely improves on Darcy's Excel; do not force a switch that leaves her worse off. Once validated, extend to the other properties and the Minneapolis/St. Paul side. |
+| **Effort to fix** | Medium and front-loaded. Resolving the permissions and scoping and configuring assignable Maintenance Techs is the real work; once done, building templates and running turns is low-effort and ongoing. No system limitation found; this is access and configuration, not capability. |
+| **Status / open item** | In progress, pending RM rep. The multi-unit view and automatic tenant pull are not yet verified. Confirm which account or location holds the existing template and the populated lists; ties to Finding 07. |
+
+| **Finding 10  ****Logged Prospect Calls Do Not Appear in Communication History** | **Quick Win** |
+| --- | --- |
+
+| **Source** | Live RM system review (Jun 18) |
+| --- | --- |
+| **Observed** | A prospect record shows a logged phone call, but the contact's Communication history is empty, and the "Unlinked Calls" view buffers indefinitely without loading. The call data appears to exist but is not linked to the record where it would be useful. |
+| **Why it matters** | Pergola pays for rmVoIP as part of the platform. If inbound and outbound calls are not reliably linking to prospect and tenant records, the call log (a natural part of the leasing funnel and communication history, see Finding 05) is incomplete, and staff cannot see a contact's full interaction history in one place. |
+| **Recommendation** | Raise with Pergola's RM rep as a likely rmVoIP sync or call-linking issue. Confirm whether calls are expected to auto-link to records, why the Unlinked Calls view fails to load, and whether a setting or re-sync resolves it. |
+| **Status** | Under investigation. Flagged to the RM rep; cause not yet confirmed. |
+
+*Additional findings pending: St. Paul PM call (Jun 20), the maintenance-team interviews (Chris completed Jun 19, others scheduled), and the full feature adoption walkthrough (in progress). Findings 09 and 10 are logged and will be updated as the RM rep responds.*
+
+# **03  ****Prioritized Roadmap**
+
+*This section will be completed upon conclusion of all discovery calls and system review. It will present findings ranked by impact and effort, with a phased implementation sequence distinguishing what the team can implement directly vs. what requires outside assistance.*
+
+	Pergola Management — Audit Findings  |  Day54, LLC  |  Confidential
