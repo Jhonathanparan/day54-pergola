@@ -388,6 +388,24 @@ Open question for Caitlin to collapse the range: are the 5 additional RM12 accou
 
 VPO invoice (#1544836, $58.38/mo) is unrelated to location count - that's printed/mailed notice volume, not a location fee. No new info on Finding 08 from this invoice beyond what's already logged.
 
+### D. RM live system check — Service Issues (Jun 22)
+
+Direct observation in RM web, Services > Service Manager > Issues. Company code: pergola.
+
+**Headline: the service issues module is HEAVILY used and generally well-managed — a strength, not a gap.** (An initial open-only view was misleading and briefly suggested the opposite; including closed issues reversed it. Lesson logged: do not conclude from a filtered view.)
+
+- With both Open and Closed issues shown, the footer reads 19,383 total issues, average age 13:20:13 (~13 hours). ~19,300 are resolved/closed. Most issues are closed, and fast (observed live: issue 29241 "Lost mailbox" created and Resolved in ~2 minutes).
+- The "Default List" saved view defaults to OPEN issues only. On that filtered view alone: 71 open, average age ~485 hours (~20 days), oldest open ~6,847 hours (~9.5 months). The open backlog skews old precisely because the system closes most things fast — what lingers is the minority that fell through.
+- Tickets are created across channels: `<TWA Submitted>` (tenant portal) plus staff (Darcy, rthompson, Will, George, chad). RM is genuinely the intake and resolution point for the bulk of logged work, across multiple properties (Rochester Heights, Rosetree, Grand/Cleveland/Lincoln/Ashland/Dayton Ave) — portfolio-wide, not single-location.
+
+**Real but NARROW finding — stale/untriaged open tail:** of the ~71 open tickets, a handful date to 2024 ("Laundry Room Issue" 04/25/24, "Club house exercise" 06/12/24) and several are untriaged (Category and Priority both `<Unassigned>`). The system closes most things quickly, but the minority that don't get closed fast become orphaned and sit indefinitely. This is a triage/hygiene cleanup item — modest, not systemic.
+
+**Effect on Finding 04:** must be rewritten DOWN. The original "urgent maintenance bypasses RM entirely; minor jobs often never logged" does not survive 19K+ logged issues. The defensible version is narrow: (a) a specific subset of urgent/after-hours text jobs may still bypass RM (per interviews), and (b) a stale open-ticket tail needs periodic triage/cleanup. The volume claim is the opposite of a problem.
+
+**Still genuinely open — do NOT conclude until checked:**
+- (1) Closeout QUALITY: open 2-3 closed tickets — do they have resolution notes/photos, or are they closed blank? Volume says nothing about this; it is the real remaining Finding 04 question.
+- (2) Parts field (Finding 11): same tickets — is there a Parts/Materials/Line Items tab, and is anything in it?
+
 ### C. Open follow-ups (added this session)
 
 - [ ] Awaiting Brian's reply on trial balance scope (blocks the consolidation quote).
