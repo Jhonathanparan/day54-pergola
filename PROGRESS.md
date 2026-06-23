@@ -402,9 +402,14 @@ Direct observation in RM web, Services > Service Manager > Issues. Company code:
 
 **Effect on Finding 04:** must be rewritten DOWN. The original "urgent maintenance bypasses RM entirely; minor jobs often never logged" does not survive 19K+ logged issues. The defensible version is narrow: (a) a specific subset of urgent/after-hours text jobs may still bypass RM (per interviews), and (b) a stale open-ticket tail needs periodic triage/cleanup. The volume claim is the opposite of a problem.
 
-**Still genuinely open — do NOT conclude until checked:**
-- (1) Closeout QUALITY: open 2-3 closed tickets — do they have resolution notes/photos, or are they closed blank? Volume says nothing about this; it is the real remaining Finding 04 question.
-- (2) Parts field (Finding 11): same tickets — is there a Parts/Materials/Line Items tab, and is anything in it?
+**Closeout quality + parts check (Jun 22, sampled closed tickets):**
+- Closed tickets HAVE resolution notes — they are not closed blank. Good news; Finding 04's closeout concern shrinks further (record exists, just lacks photos and parts).
+- No photos attached on the sampled tickets. Minor.
+- The issue detail has a "Work Orders" sub-section: a per-job line-item grid (Item, Description, Quantity, Cost, Sale Price, Total) with Add Item / Create Item Links / Print Work Order. THIS is RM's native parts/materials area. It is EMPTY on the sampled tickets ("There are no work order items for this issue"). Checklist also empty.
+- KEY: the "Sale Price" column makes this grid the built-in CHARGEBACK mechanism (Cost = paid, Sale Price = billed, Total flows to billing). So one empty grid = BOTH the parts-tracking gap AND the chargeback gap. Same "owned but unused" pattern as the rest of the audit.
+- Caveat: sample, not census — but consistent with interviews (parts -> receipts -> Chad, never into RM), so a sound read. To lock it airtight, check a turnover issue (parts most likely there).
+
+**Effect on Finding 11 (parts):** RM natively handles Problem B (per-job parts + chargeback) via the Work Orders line-item grid — NO build needed; recommendation is "use the feature you own," or the lighter give-away "attach the receipt photo to the ticket." Friction (will techs fill it in?) is the open risk, but the tool exists at zero cost. Problem A (inventory, stock levels, trips, supplier consolidation) is NOT solved by this per-job grid and remains the separate Phase 2 build. The finding splits cleanly: give-away (Problem B, native RM) vs. Phase 2 build (Problem A, inventory/procurement).
 
 ### C. Open follow-ups (added this session)
 
