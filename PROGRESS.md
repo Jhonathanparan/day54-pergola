@@ -430,6 +430,20 @@ Direct observation in RM web. CORRECTS my earlier assumption that Finding 11 Pro
 
 **Through-line reinforced:** owned, often partially configured, left idle — utilities (module empty), make-ready (lists populated, board not activated), inventory/parts (price book set up, quantities 0, Work Orders grids empty, POs empty). The deliverable's value is activation + adoption, not buying anything new.
 
+### F. Finding 11 recommendation — RIGHT-SIZED (Jun 22)
+
+Critical correction to the "activate RM inventory" pitch: the MANUAL nature of RM inventory is almost certainly WHY it was never used, so "just turn it on" would script the same failure. RM inventory is manual at the two points that matter — decrement on every part used, increment on every restock. For 3 techs across buildings that is the adoption-killer, and it likely killed the parts list Brian/Joe mentioned. Do NOT lead the recommendation with "activate RM inventory."
+
+Self-maintaining mechanism (the only thing that rescues RM inventory): RM is designed so adding an inventory item to a work order auto-decrements stock — so per-job parts logging (Problem B, done anyway for chargeback) IS the inventory-maintenance mechanism; one action = chargeback record + stock drawdown. CONFIRM exact behavior with Camille. But this still depends on the logging habit sticking, so it consolidates friction rather than removing it.
+
+RIGHT-SIZED recommendation order for Finding 11 (lead with lowest-overhead, highest-value):
+1. Supplier consolidation + online ordering/delivery (Pro Supply etc.) — kills trips and the Maintech markup, ZERO inventory overhead, pure procurement. Biggest cheapest win.
+2. Par-level VISUAL lists per building — faster-than-counting glance sheet, NOT a maintained RM quantity. Lightweight version of Yonatan's original idea.
+3. Parts on work orders for chargeback (Problem B) — worth it alone for recoverable tenant-damage money.
+4. Full RM inventory (counts/reorder/POs) = OPTIONAL, SEQUENCED future step only — turn on AFTER the parts-logging habit proves sustainable (so it self-maintains via work-order drawdown). Flag adoption cost honestly; do not oversell. For a 3-tech/600-unit shop full inventory may cost more admin time than it saves; right-size, do not default to it because it is "owned."
+
+Principle captured: "owned" does not mean "right." A feature the team already abandoned for friction reasons should not be re-recommended without removing the friction that killed it.
+
 ### C. Open follow-ups (added this session)
 
 - [ ] Awaiting Brian's reply on trial balance scope (blocks the consolidation quote).
