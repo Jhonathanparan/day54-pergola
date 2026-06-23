@@ -409,7 +409,25 @@ Direct observation in RM web, Services > Service Manager > Issues. Company code:
 - KEY: the "Sale Price" column makes this grid the built-in CHARGEBACK mechanism (Cost = paid, Sale Price = billed, Total flows to billing). So one empty grid = BOTH the parts-tracking gap AND the chargeback gap. Same "owned but unused" pattern as the rest of the audit.
 - Caveat: sample, not census — but consistent with interviews (parts -> receipts -> Chad, never into RM), so a sound read. To lock it airtight, check a turnover issue (parts most likely there).
 
-**Effect on Finding 11 (parts):** RM natively handles Problem B (per-job parts + chargeback) via the Work Orders line-item grid — NO build needed; recommendation is "use the feature you own," or the lighter give-away "attach the receipt photo to the ticket." Friction (will techs fill it in?) is the open risk, but the tool exists at zero cost. Problem A (inventory, stock levels, trips, supplier consolidation) is NOT solved by this per-job grid and remains the separate Phase 2 build. The finding splits cleanly: give-away (Problem B, native RM) vs. Phase 2 build (Problem A, inventory/procurement).
+**Effect on Finding 11 (parts):** RM natively handles Problem B (per-job parts + chargeback) via the Work Orders line-item grid — NO build needed; recommendation is "use the feature you own," or the lighter give-away "attach the receipt photo to the ticket." Friction (will techs fill it in?) is the open risk, but the tool exists at zero cost. (Problem A framing CORRECTED in subsection E below — RM also has a native inventory/reorder/PO suite, so Problem A is NOT an external build either.)
+
+### E. RM live system check — Inventory / Purchasing (Jun 22)
+
+Direct observation in RM web. CORRECTS my earlier assumption that Finding 11 Problem A (stock/trips/procurement) needs an external build. It does not — RM has the full native toolset, unused.
+
+**What exists:**
+- Inventory Items catalog (Accounting > Inventory Items): ~13 items, ALL Quantity 0.00. Items are mostly CHARGE items configured for chargeback/billing (Maint. Tech. Labor cost $55 / markup $15; Tenant Locked Out $75; Replacement Locks/Keys $45 + $5 markup; Window Blinds; disposal/snow/carpet fees; reimbursements). Columns: Cost, Markup, Expense Chart Account, Income Charge Type. This is a CHARGEBACK PRICE BOOK, not a stock system — and it is the catalog that feeds the Work Orders "Add Item" dropdown.
+- Full native inventory report suite (via Command Launch "inventory"): Inventory History, Inventory Reorder, Inventory Valuation Summary, Inventory Items Listing, Physical Inventory Worksheet. The "Inventory Reorder" report + "Physical Inventory Worksheet" are exactly the stock-level + auto-purchase-list system Yonatan envisioned.
+- Purchase Orders module exists but is EMPTY.
+- (Menu confirms for other findings: Services menu shows Metered Utilities with MU Import From File, Meter Types, Meter Readings Setup/Statuses — relevant to Finding 01; Make Ready Templates + Make Ready Board under Services > Make Ready — Finding 09. RM version 12.260552.)
+
+**Conclusion (measured):** RM natively supports stock-level inventory + reorder + purchase orders across locations — the exact tooling Problem A needs. It is unused (quantities 0, POs empty); the catalog that IS set up is a billing price book, not stock. Same owned/configured/unused pattern as utilities and make-ready.
+
+**Effect on Finding 11 Problem A:** pitch shifts from "build an external system" to "ACTIVATE RM's existing inventory/reorder/PO module." Cheaper, more credible Phase 2. HONEST CAVEAT (do not over-promise): activation is not free — the reorder report only works if each physical part is set up as an inventory item with stock count, reorder point, and per-building location, AND the counts are kept current. That ongoing count-maintenance is the same friction that likely killed it before. The Phase 2 value is designing a count process techs will sustain, not flipping a switch. Supplier consolidation / online ordering (Pro Supply etc.) remains a parallel non-RM operational rec.
+
+**Recoverable-money angle:** the chargeback price book (labor + markup, lockout, locks/keys) means the ability to bill tenant damage back with parts + labor + markup was already built. Empty Work Orders grids mean it is not used. Every tenant-damage turnover where the cost is eaten instead of billed is recoverable money — a concrete dollar argument for Brian.
+
+**Through-line reinforced:** owned, often partially configured, left idle — utilities (module empty), make-ready (lists populated, board not activated), inventory/parts (price book set up, quantities 0, Work Orders grids empty, POs empty). The deliverable's value is activation + adoption, not buying anything new.
 
 ### C. Open follow-ups (added this session)
 
