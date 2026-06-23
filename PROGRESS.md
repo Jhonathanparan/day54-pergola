@@ -444,6 +444,21 @@ RIGHT-SIZED recommendation order for Finding 11 (lead with lowest-overhead, high
 
 Principle captured: "owned" does not mean "right." A feature the team already abandoned for friction reasons should not be re-recommended without removing the friction that killed it.
 
+### G. RM live system check — Prospects (Jun 22, Finding 05)
+
+Direct observation, Rental Info > Prospects. ~4 active prospects total (3 at MPLS/BLOOMINGTON pending approval + 1 at other location), all recent (06/17-06/22). Sample record: Eddwin Rojas, Acct #2363, Essex Green Apartments. History shows "Account created through Online Application" 06/17 -> Screening Report 06/18 -> attachments 06/22.
+
+**Confirms Finding 05 at system level, and refines it:**
+- Prospect records are BORN AT APPLICATION ("Account created through Online Application"). The prospect did not exist in RM before applying online, so the entire pre-application top of funnel (inquiry, first contact, showing, no-shows, dropped leads) was never captured. Low volume (~4) is consistent: only applicants exist as records.
+- REFINEMENT: the BACK half of the funnel works and is tracked (application -> screening -> approval -> signed lease -> future move-in; there is a list of approved future tenants awaiting move-in). The gap is specifically the FRONT half (lead -> contact -> showing -> applied) — which is exactly the part Brian needs to diagnose vacancy.
+- Lead Information section is EMPTY on all records (no source, no leasing agent) even though RM auto-created them from online applications. So even applicants carry no source attribution — cannot tell Zillow vs Apartments.com conversion.
+- Stages ARE visible via the notes/history timeline, but only post-application stages, not pre-application funnel.
+- Spans both locations at low volume; consistent with all three PM interviews (Jocelyn, Bobby, Darcy) who keep external Google Sheets for showing logs.
+
+**MANUAL-ENTRY THROUGH-LINE (sharper spine for the deliverable):** the consistent failure point across the whole audit is not the modules — it is any data requiring a HUMAN to enter it at the moment of an operational action. Auto-captured data works everywhere (online applications, GL cost postings, portal work-order submissions). Manual-at-point-of-action data is empty everywhere (lead source/inquiries, parts on work orders, inventory counts, meter readings). This supersedes/sharpens the earlier "cost data without operational data" thesis: the operational data is missing specifically where it depends on manual entry. Every Phase 2 recommendation should minimize or eliminate manual entry, or the data will not get captured.
+
+**Finding 05 recommendation (friction-aware):** "log prospects at first contact" is a MANUAL step — exactly why PMs use Google Sheets instead. Friction-aware fix: make the top of funnel AUTO-POPULATE like applications already do — integrate listing sources (Zillow / Apartments.com lead feeds) so an inquiry creates a prospect record WITH a source automatically. Phase 2 hook. CONFIRM with Camille whether RM supports ILS / lead-import integration (flag, do not assert).
+
 ### C. Open follow-ups (added this session)
 
 - [ ] Awaiting Brian's reply on trial balance scope (blocks the consolidation quote).
