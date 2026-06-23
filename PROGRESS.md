@@ -457,7 +457,17 @@ Direct observation, Rental Info > Prospects. ~4 active prospects total (3 at MPL
 
 **MANUAL-ENTRY THROUGH-LINE (sharper spine for the deliverable):** the consistent failure point across the whole audit is not the modules — it is any data requiring a HUMAN to enter it at the moment of an operational action. Auto-captured data works everywhere (online applications, GL cost postings, portal work-order submissions). Manual-at-point-of-action data is empty everywhere (lead source/inquiries, parts on work orders, inventory counts, meter readings). This supersedes/sharpens the earlier "cost data without operational data" thesis: the operational data is missing specifically where it depends on manual entry. Every Phase 2 recommendation should minimize or eliminate manual entry, or the data will not get captured.
 
-**Finding 05 recommendation (friction-aware):** "log prospects at first contact" is a MANUAL step — exactly why PMs use Google Sheets instead. Friction-aware fix: make the top of funnel AUTO-POPULATE like applications already do — integrate listing sources (Zillow / Apartments.com lead feeds) so an inquiry creates a prospect record WITH a source automatically. Phase 2 hook. CONFIRM with Camille whether RM supports ILS / lead-import integration (flag, do not assert).
+**Finding 05 recommendation — REVISED (Jun 22, after critique).** Earlier draft said "auto-populate every listing inquiry into RM as a prospect record." REJECTED: interviews say inquiry volume is high and conversion low, so auto-creating a full record per inquiry imports mostly noise (spam, no-responses, unqualified, ghosts) and creates another unmaintained list. The flaw was collapsing two different needs:
+- FUNNEL METRICS (what Brian needs): aggregate counts + conversion at each stage to diagnose the Rochester vacancy. The non-converters ARE the denominator — needed as a COUNT, not as individual records.
+- PROSPECT RECORDS (CRM nurture): a record per lead. Not what Brian asked for; this is the noise.
+
+REVISED fix — assemble the funnel from where each stage's data already lives:
+- Top of funnel (inquiries, views, leads, response time): Zillow / Apartments.com dashboards already track this. SURFACE the metric, do not rebuild records in RM. CONFIRM what those dashboards actually expose (leads + views likely; response-time + showing outcomes need verifying) before recommending any manual tracking.
+- Middle (contacted -> showing -> applied): neither platform nor RM captures this; the only part worth a lightweight tracker. Create a record only once a lead becomes REAL (responds / requests showing), source tagged — a manageable handful, not the flood.
+- Bottom (application -> move-in): already works in RM (confirmed in subsection G).
+- This answers Brian's exact question (marketing vs response-speed vs conversion) by sourcing each stage's number from the system that already measures it, while avoiding BOTH failure modes: no manual logging of every lead (the through-line), and no auto-dump of every tire-kicker (the noise).
+
+NOTE: Finding 05 (per-PERSON showing/lead logs) and Finding 09 (per-UNIT turnover sheets) are DISTINCT workarounds with distinct fixes. The prospect/funnel fix touches only 05. Turnover sheets (Darcy's Excel; Bobby keeps both a turnover sheet AND a showing log) are the Make Ready / turnover-report track (09). Keep them separate in the deliverable; do not lump "the Excel sheets" together.
 
 ### C. Open follow-ups (added this session)
 
