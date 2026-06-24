@@ -640,9 +640,9 @@ Yonatan confirmed RM publishes a vacancy/availability listing (Vacancy.pdf share
 
 rmService = RM's mobile maintenance app, bundled in the $155 RM Online fee (with WPS + rmInspection). Mobile-app use is not directly observable from web, but evidence in hand resolves it: 19,383 logged service issues = RM maintenance is heavily adopted (F04 is a strength), while closeouts carry notes but no photos/parts (F04/F11). Read: the bundle IS used (heavy issue logging), but rmService's richer point-of-work capture (photos, parts) is underleveraged - exactly the F04/F11 closeout-quality gap. No separate dormant-cost finding; folds into F04/F11 as a feature-depth gap. Confirm tech-app specifics with staff only if a maintenance session arises; not chased.
 
-### Item 5 - RM12 API / Open Access [F12 candidate]: ROUTE TO CAMILLE (not live-checkable)
+### Item 5 - RM12 API / Open Access: RESOLVED (was F12 candidate / route-to-Camille; superseded by Section 19)
 
-Camille said Open Access is NOT enabled, yet the $95 RM12 API line is billed (Section 14.G catch). Likely the partner-integration API (AvidXchange/Zego) is active while self-serve Open Access is off - either a paid line for a capability Pergola can't self-activate, or a switch to flip for the Phase-2 utility build. Not resolvable from the UI; a billing/RM-rep fact. Stays candidate F12 on the Camille list (already queued). NOT a live check.
+Camille said Open Access is NOT enabled, yet the $95 RM12 API line is billed (Section 14.G catch). Likely the partner-integration API (AvidXchange/Zego) is active while self-serve Open Access is off - either a paid line for a capability Pergola can't self-activate, or a switch to flip for the Phase-2 utility build. RESOLVED Jun 24 (see Section 19): Yonatan confirms Avid runs on an active API and RM12 API is the only API line, so this line IS the Avid conduit (justified cost). Candidate F12 dropped; not chasing Camille.
 
 ### PUNCH-LIST COMPLETE (June 24) - feature-inventory systematic pass closed
 
@@ -651,17 +651,17 @@ All Section 14.I live-confirm items resolved, web-only:
 2. rmVoIP - actively used; F10 already closed (no dormant cost)
 3. Unit Availability / Web Suite - CONFIRMED used (realized)
 4. rmService - bundle used; rich-capture underleveraged -> folds into F04/F11
-5. RM12 API - candidate F12, routed to Camille
+5. RM12 API - RESOLVED: AvidXchange conduit, justified cost; candidate F12 dropped (Section 19)
 6. (Native A/P vs AvidXchange - Chad meeting Thu/Fri, separate track)
 
-Net: deliverable Section 02 (Feature Inventory) is CLOSED except the API line (Camille) and the AvidXchange lane (Chad). Remaining work pivots to the deliverable.
+Net: deliverable Section 02 (Feature Inventory) is CLOSED except the AvidXchange lane (Chad); the RM12 API line is resolved (Section 19). Remaining work pivots to the deliverable.
 
 build_findings.js Section 02 inventory rows to update in the deliverable pass:
 - rmInspection: dormant -> activate (ties F09)
 - rmService: used; depth gap, ties F04/F11
 - Unit Availability: used / realized
 - rmVoIP: used; F10 closed
-- RM12 API: candidate F12, pending Camille
+- RM12 API: RESOLVED (AvidXchange conduit, justified cost); candidate F12 dropped - see Section 19
 
 ## 17. Deliverable source updated - June 24 (build_findings.js)
 
@@ -673,7 +673,7 @@ Edits made (8 total):
 
 Verification (no JS runtime available): string-aware bracket scan = stack clean, zero mismatches, nothing unclosed at EOF. Raw {} count is off by exactly 2 = the 2 template-literal ${} expressions (checker artifact, NOT a real imbalance; () and [] balanced). Escaped quotes intact. Safe to rebuild.
 
-OPEN: rebuild .docx with node, swap into 01_Deliverable. Deliverable is now current except Brian-gated (privilege/GL/PayLease), Chad-gated (AvidXchange A/P), Camille-gated (RM12 API line).
+OPEN: rebuild .docx with node, swap into 01_Deliverable. Deliverable is now current except Brian-gated (privilege/GL/PayLease) and Chad-gated (AvidXchange A/P). [RM12 API line resolved Jun 24, Section 19.]
 [RESOLVED in Section 18 - node now installed locally; .docx rebuilt on the Mac.]
 
 ## 18. Local toolchain installed - June 24 (retires the "node not local" caveat)
@@ -689,3 +689,13 @@ REBUILT the deliverable locally. IMPORTANT: the on-disk .docx was STALE (dated J
 Local rebuild command going forward: `node build_findings.js` from /Users/mac1/Projects/pergola.
 
 Git: build_findings.js + Pergola_Audit_Findings.docx modified; .gitignore + package.json + package-lock.json are new/untracked (commit when ready; node_modules is ignored).
+
+## 19. RM12 API line - RESOLVED; candidate F12 dropped (June 24)
+
+Reverses the "route to Camille" plan (Section 16 Item 5). Yonatan's domain knowledge closes the contradiction without an email: there is an active API for AvidXchange, and RM12 API is the ONLY API line on the invoice. So the billed ~$95/mo line IS the Avid conduit - a justified, in-use cost, NOT recoverable. The candidate Finding 12 (recoverable-cost angle) is DROPPED; it only existed if the line were idle, which it is not.
+
+The rep's "API / Open Access not enabled" referred to the separate self-serve Open Access read layer. That matters only to a possible Phase 2 utility-data build (pulling consumption into a reporting layer), which is out of scope for this audit and which Camille steered away from anyway (double-charge framing). It stays a Phase 2 scoping question inside F01, not a Phase 1 finding - so the F01 Phase-2 Open Access prerequisite language (build_findings.js lines ~412-414) was left intact.
+
+The one genuinely loose thread - whether Avid rides on THIS line vs another mechanism - is already covered by the Chad/AvidXchange session (Thu/Fri), so no separate Camille email is warranted.
+
+Consequence: the Camille list now holds ONLY the privilege-node re-ask (gated on Brian). Deliverable updated + rebuilt: inventory RM12 API row -> "Adopt - justified cost (self-serve Open Access = Phase 2 only)"; the API note reframed from "contradiction to resolve" to resolved; closing summary "two items remain" -> "one item remains" (A/P vs Avid, with Chad); legend "Clarify" verdict dropped (no longer used).

@@ -333,7 +333,7 @@ function buildFeatureInventory() {
   return [
     sectionHeading("02", "Rent Manager Feature Inventory"),
     rule(),
-    bodyText("Brian's framing was whether Pergola is squeezing the juice out of what it already pays for. This is the complete inventory: every licensed add-on and major in-platform module, what it does today, and a verdict. Adopt means use it or keep using it; Fix means owned and used but misconfigured; Activate means owned but sitting idle; Investigate or Clarify means one question is still open with the team or the RM rep. Verdicts cross-reference the detailed findings (F01–F11)."),
+    bodyText("Brian's framing was whether Pergola is squeezing the juice out of what it already pays for. This is the complete inventory: every licensed add-on and major in-platform module, what it does today, and a verdict. Adopt means use it or keep using it; Fix means owned and used but misconfigured; Activate means owned but sitting idle; Investigate means one question is still open with the team. Verdicts cross-reference the detailed findings (F01–F11)."),
     bodyText("It is built from the billing detail (what is actually licensed) and the live system review, conducted on the web client — Rent Manager's current platform. Where the web client exposes a capability staff are not using, that is an adoption opportunity, not an audit gap.", { italics: true, color: "555555" }),
     spacer(120),
     roadmapSubheading("Licensed add-ons (billed monthly)"),
@@ -347,13 +347,13 @@ function buildFeatureInventory() {
       ["Online Applications (Web Dev Suite)", "Working — prospects enter at application", "Adopt (F05 front-funnel gap)"],
       ["Unit Availability (Web Dev Suite)", "Confirmed — RM publishes a live vacancy listing", "Adopt — already in use"],
       ["Unlimited Text Broadcast", "Outbound blasts go out and log", "Adopt"],
-      ["RM12 API ($95/mo)", "Open Access off per rep, yet $95 line billed — pending RM rep", "Clarify — paid vs. enabled (see note)"],
+      ["RM12 API ($95/mo)", "Powers the active AvidXchange integration; the only API line billed", "Adopt — justified cost (self-serve Open Access = Phase 2 only)"],
       ["rmVoIP / phone (~$266/mo)", "Actively used; calls auto-link but go un-notated", "Adopt — in use (F10)"],
       ["VPO printed notices (~$58/mo)", "~49 batches/mo, actively used", "Optimize — shift to email (F08)"],
       ["Orion AI / Smart Bills / Bank Sync", "Not licensed", "Skip now — Phase 3 footnote"]
     ]),
     spacer(60),
-    bodyText("Note — a contradiction to resolve: the subscription carries a billed \"RM12 API\" line at roughly $95/month, yet the RM rep states API / Open Access is not enabled. Most likely the partner-integration API (powering AvidXchange and Zego) is active while the self-serve Open Access read layer is not — but it should be confirmed, because a paid line for a capability that cannot be used is either recoverable cost or a switch waiting to be turned on for the Phase 2 utility build.", { italics: true }),
+    bodyText("Note on the RM12 API line: the billed \"RM12 API\" charge (roughly $95/month) powers the active AvidXchange integration — it is the conduit that integration runs on, and it is the only API line on the invoice — so it is a justified, in-use cost, not recoverable. What the RM rep flagged as not enabled is the separate self-serve Open Access read layer, which only comes into play if a future Phase 2 project pulls utility consumption into a reporting layer; that is a Phase 2 scoping question, not an open item here.", { italics: true }),
     spacer(140),
     roadmapSubheading("In-platform modules (included)"),
     inventoryTable([
@@ -368,7 +368,7 @@ function buildFeatureInventory() {
       ["Accounts Payable (native vs AvidXchange)", "AvidXchange in use; native A/P unreviewed", "Investigate (Chad)"]
     ]),
     spacer(120),
-    bodyText("The feature-level checks are now closed on the web client: rmService and rmInspection adoption, Unit Availability, and rmVoIP utilization are all resolved above. Two items remain open, both awaiting outside input rather than a further system check — the RM12 API / Open Access status (with the RM rep) and native Accounts Payable versus AvidXchange (with Chad).", { color: "555555" }),
+    bodyText("The feature-level checks are now closed on the web client: rmService and rmInspection adoption, Unit Availability, rmVoIP utilization, and the RM12 API line (the AvidXchange conduit) are all resolved above. One item remains open, awaiting outside input rather than a further system check — native Accounts Payable versus AvidXchange, which the upcoming session with Chad will settle.", { color: "555555" }),
     spacer(120)
   ];
 }
