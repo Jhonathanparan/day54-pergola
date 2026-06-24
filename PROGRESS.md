@@ -205,6 +205,8 @@ Draft 8-step turnover sequence (saved for when we can build): Move-out inspectio
 
 Revised Finding 09 (locked language, NOT yet built into build_findings.js): The Make Ready module is owned (Brian's contract) and the underlying Service Manager taxonomy is populated and actively used. But turnover still runs in Darcy's external Excel because the board has never been activated, and activation is currently blocked: the template builder's Action/Category/Priority/Status pickers return no results despite those lists being populated in Service Setup; the setup lists are view-only on the audit login; and the one existing template is locked even with administrator rights. These point to a permissions/account-scoping issue, not absent configuration. Recommendation: resolve with the RM rep, then build and validate a turnover template against Darcy's sheet (multi-unit view + automatic tenant pull still to confirm). Priority High Impact; effort medium, gated by the permissions resolution. Open item: which account/location holds the existing template and populated lists (ties to Finding 07).
 
+ROOT CAUSE CORRECTED (Jun 23) — see Section 14.B. Scoping is RULED OUT; the picker emptiness, view-only setup lists, and locked template all collapse into ONE cause: insufficient add/update privilege on the JD audit login (confirmed by explicit RM error). Finding 09 language to be tightened from "permissions/account-scoping" to "read-only Service Manager privileges on the audit login." Finding 07 stays relevant to consolidation but is no longer the explanation for this bug.
+
 ### B. New finding - Prospect call logged but rmVoIP / Communication history empty
 
 Source: Nachshon walkthrough, Jun 18. A prospect record shows a logged call (e.g., prior day), but Communication > History is empty and the only other option, "Unlinked Calls," buffers endlessly. Likely an rmVoIP sync / call-linking issue. Flagged to the RM rep (in punch-list email).
@@ -475,3 +477,96 @@ NOTE: Finding 05 (per-PERSON showing/lead logs) and Finding 09 (per-UNIT turnove
 - [ ] Ask Caitlin whether the 5 RM12 Additional Accounts are location-tied or seat-tied (collapses the two-location cost range to one number).
 - [ ] Ask Caitlin (or fold into RM rep email) whether RM has API support to ingest Zego consumption data, or whether it requires LCS's manual utility-team service.
 - [ ] Decide whether/how the consolidation discussion becomes a formal finding in build_findings.js, or stays a parallel-track investigation (Brian engaged Day54 for discovery/gap-analysis, not implementation - consolidation is Brian's own initiative with LCS, adjacent to but distinct from the audit scope).
+
+---
+
+## 14. Session update - June 23, 2026
+
+### A. Camille (RM rep) reply received
+
+Camille Brigano answered the Jun 22 punch-list email (Make Ready permissions, utility consumption, rmVoIP). Summary of what she resolved vs. dodged:
+
+- **Make Ready privileges:** clarified that "Administrator" is just a privilege flag granting feature VISIBILITY, not database add/edit/delete control - those are separate per-feature User Privilege nodes that must be enabled individually. Directionally correct but she did NOT identify which nodes, and did NOT explain the specific picker-empty symptom (see B).
+- **Utility consumption:** two hard answers. (1) API / Open Access is NOT enabled on Pergola's subscription - kills the API ingest path unless purchased/enabled. (2) She steered AWAY from pushing readings into RM, citing double-charge risk (RM calculating charges + Zego pushing charges) and said Zego likely has built-in anomaly detection. PUSHBACK NOTED: the double-charge concern only applies if RM-side billing is turned on; importing consumption for MONITORING only (Meter Readings, no billing config) does not auto-create charges. Decision pending: where anomaly detection should live - Zego (her suggestion, unverified "I believe"), a Day54 pipeline, or RM monitoring-only import.
+- **rmVoIP:** explained calls auto-link by matching the INBOUND CALLER's number to a contact record (prospect/tenant/owner/vendor); "Unlinked Calls" = calls from numbers not in RM. Punted BOTH real bugs (logged call with empty Communication history; Unlinked Calls view spinning forever) to RM support. Effect on Finding 10 below.
+
+### B. Make Ready picker root cause CORRECTED - it is a privilege wall, account-wide
+
+Two live tests this session settle the diagnosis:
+
+1. **Scoping ruled out.** Created a NEW template and selected the property "1-Rochester Heights" FIRST (the same property the one working template is bound to), then Add item. Action/Category/Priority/Status pickers were STILL empty. If location scope were the cause, that property would have resolved the actions the way it does for the existing template. It didn't. Property/location is not the variable.
+2. **Privilege wall confirmed in RM's own words.** Enabling Meter Estimates (Services > Metered Utilities) threw a hard error dialog: **"An error has occurred - Insufficient privileges to add or update data."** Same wall, different module.
+
+CONCLUSION: the three Make Ready symptoms (empty pickers, view-only setup lists, locked template + disabled Save) collapse into ONE root cause - the JD audit login lacks add/update privileges across the Service Manager / Metered Utilities modules. The "Administrator" flag gives visibility (can view setup lists, can open the template dialog, existing data renders) but not the per-feature add/update rights, so every interactive action (picker lookup, Save, enable) is inert. This is ACCOUNT-WIDE, not Make-Ready-specific: it blocks BOTH Finding 09 (turnover) and Finding 01 (utility/meter config).
+
+Ties back to Jun 18 (Section 12.D): Brian set JD to administrator but "couldn't pinpoint the blocking privilege" - which is exactly why he handed off to Camille. The blocker he couldn't find is this add/update privilege gap, now confirmed explicitly.
+
+The "view vs. select" paradox explained: in RM, "view a list in Service Setup" and "select from that list inside the template builder / create a Service Issue" are governed by different privilege nodes. JD has the former, not the latter, hence configured-but-unselectable.
+
+### C. Existing-template discrepancy RESOLVED
+
+Screenshot of the one existing Make Ready Template confirms it is **"Rochester Heights"** (Properties = 1-Rochester Heights), 6 items (Move Out Inspection, Re-key Locks, General Maintenance, Painting, Flooring, Cleaning), all Unassigned, footer "1 of 1 Make Ready Templates." This resolves the line-245 discrepancy: the existing template is Rochester (Darcy), NOT "St. Paul side" as Brian described on Jun 18. Update the Section 12.D note and Finding 09 open item accordingly. Also confirms scope is set at the template HEADER (one Properties binding), not per item - items carry no property of their own.
+
+### D. rmVoIP / Finding 10 - DOWNGRADED (check done)
+
+CHECK DONE (Jun 23, screenshot). Tenant Hannah Holm (Acct #2214), phone on file (704) 960-9860: her History/Notes shows "rmVoIP Call To (704) 960-9860" (01/20/20). The call AUTO-LINKED to the contact whose number matches. So rmVoIP linking WORKS AS DESIGNED when the number is on file - the original "prospect with empty history" symptom was an unlinked call (number not saved) or the wrong tab, NOT a sync defect. The empty-history half of Finding 10 does NOT survive.
+
+What the screenshot actually surfaces (both more useful than the supposed bug):
+1. CALL LOGS BUT IS NOT NOTATED: the note reads "rmVoIP Call To ..., Caller ID:" - blank, no conversation content. Auto-captured metadata present, human-entered substance missing. This is the manual-at-point-of-action through-line, not a defect.
+2. COMMS IS MOSTLY EMAIL, and RM-SENT email DOES log: history is dominated by outbound Pergola blasts (showings schedule, laundry survey, picnic invites) sent through RM, so they auto-log. This does NOT contradict Bobby's point - the gap is INBOUND/individual two-way threads that live in Outlook, not the outbound blasts.
+
+NET Finding 10: downgrade to the spinning "Unlinked Calls" view only (the one genuine RM support-ticket bug), folded under the broader comms-logging observation (outbound RM mail logs; inbound/individual Outlook correspondence does not, and calls log without notation). Minor data oddity noted, not pursued: "Last Contact 12/17/2014" despite 2015 + 2020 entries.
+
+### E. Action taken - message to Brian (privilege blocker)
+
+Sent Brian a message: the Jun 18 privilege blocker is now confirmed by RM ("Insufficient privileges to add or update data") and is broader than Make Ready - it also blocks Metered Utilities (Finding 01). Two asks: (1) does Brian's OWN login hit the same wall when enabling Meter Estimates / adding a Make Ready item? (isolates "JD's login" vs "account-wide"); (2) take the exact error string to Camille / RM support to identify the precise privilege node, since hand-toggling "administrator" already failed on the 18th. Awaiting Brian's reply.
+
+### F. Open follow-ups (added this session)
+
+- [ ] Awaiting Brian: does his full-privilege login hit the same "insufficient privileges" wall? Decides privilege-grant vs. RM support ticket.
+- [ ] Re-ask Camille (once Brian responds) for the SPECIFIC User Privilege nodes (Service Manager / Service Issues / Inspections / Make Ready Items + select-level access to the setup lists) that enable add-item + Save on a template, given the login can VIEW the lists but the builder returns none.
+- [ ] Tighten Finding 09 language: root cause = read-only Service Manager privileges on the audit login (scoping ruled out); fix Rochester-Heights-not-St-Paul detail.
+- [ ] Decide where utility anomaly detection lives (Zego vs Day54 pipeline vs RM monitoring-only import); push back on Camille's double-charge framing since monitoring-only import does not auto-bill. API/Open Access NOT enabled is now a confirmed Phase-2 prerequisite/cost for any RM-side ingest.
+- [x] rmVoIP: verified (Jun 23, Hannah Holm screenshot) - linking works when number is on file; empty-history half does NOT survive. Finding 10 downgraded to spinning Unlinked Calls view only, folded under comms-logging. Open: spinning view stays a support ticket; decide if "calls/inbound email not logged or notated" becomes part of Finding 04/comms finding rather than its own item.
+- [ALL-ON-BRIAN, Jun 23] Every actionable in-flight item now waits on Brian: (1) privileges response + his-login test, (2) Zego/PayLease access connection, (3) GL trial-balance reconciliation scope for the consolidation quote. No remaining audit action is unblocked by his input. Clean pause point.
+
+### G. Deliverable sync pass - build_findings.js reconciled (Jun 23)
+
+Reconciled the .docx source to the current research state. All edits are in `build_findings.js`; rebuild with `node build_findings.js` in the build environment (node is not on the local Mac), then swap the .docx into 01_Deliverable. Structural bracket balance verified (parens/brackets/braces all balanced with string literals excluded).
+
+Changes made:
+- Finding 04: REWRITTEN DOWN. Old title "Urgent Maintenance Requests Bypass RM Entirely" was contradicted by the 19,383-issue live review. New title "Maintenance Logging Is a Strength; the Real Gaps Are a Stale Open-Ticket Tail and After-Hours Intake," reclassified Quick Win. Frames RM maintenance adoption as a strength; narrow gaps = stale open tail + after-hours intake; closeout has notes but no photos/parts (cross-ref 11).
+- Finding 05: recommendation REPLACED. Removed the rejected "log every inquiry in RM" rec; added the assemble-from-sources framing (top of funnel from Zillow/Apartments dashboards, middle = lightweight real-lead tracker, bottom already works) + the system-level confirmation (prospects born at application, Lead Information empty).
+- Finding 09: root cause CORRECTED from "permissions or account-scoping" to the privilege wall - scoping ruled out by the property-first test; confirmed by the explicit "Insufficient privileges to add or update data" error; named the existing template as Rochester Heights (not St. Paul); tied to Finding 01 (same gap blocks Meter Estimates).
+- Finding 10: DOWNGRADED. Retitled to the communication-logging framing; linking works as designed (Hannah Holm proof); net items = call-notation habit, inbound-email-stays-in-Outlook gap, and the one Unlinked Calls support ticket.
+- Finding 11: ADDED (was researched but missing from the doc). Parts/procurement + inventory, High Impact, with the right-sized recommendation order and the recoverable-money/chargeback angle.
+- Exec summary status table: refreshed (St. Paul/Bobby complete, parts review complete, roadmap drafted, walkthrough marked partial). Pending-findings note updated to name the open items (systematic walkthrough, AvidXchange, the three access-gated verifications).
+- Roadmap (Section 03): WRITTEN from placeholder to a full three-tier roadmap - Tier 0 unblock (privileges, Zego, consolidation scope, GL coding), Tier 1 quick wins (02/03/04/08/10/11/05 give-aways), Tier 2 Phase 2 builds (utility dashboard off Zego, funnel view, turnover system, parts/procurement, the closed-issue capital-planning mine, and the unifying Operational Data Layer). AI add-ons left as a Phase 3 footnote.
+
+### H. Open research prep (unblocked, not yet executed)
+
+- Closed-issue corpus mine (NEW value, no Brian needed): export the ~19,383 Service Manager issues (Issue, Property, Category, Priority, Created/Resolved dates, Assigned To) and cluster by property + issue type to surface money-pit buildings and recurring systems. Becomes a capital-planning/preventive finding. Needs Yonatan to pull the export from RM (web reports, read-only).
+- [MESSAGE SENT, Jun 23] AvidXchange vs native RM A/P: async message sent to Chad (the lane was untouched since kickoff, open action item Section 6). Asked: cost/mo, monthly bill volume, what it does that native RM A/P does not, approval workflow + where payment is sent from, whether native RM A/P could handle it, and (softened) how AvidXchange connects to RM (API/file/manual) to test the API-conduit theory. Logs confirmed the questioning is grounded: AvidXchange is the active A/P/vendor-bill-payment integration partner, billed separately (not on the LCS invoice), and Chad owns all A/P. Caveat held: the $95 RM12 API = AvidXchange conduit is a HYPOTHESIS not supported by the logs; connection mechanism may route to Camille/LCS if Chad (a PM, not IT) doesn't know. Awaiting reply, then write up the A/P finding + confirm/drop the API theory. Bank Sync as a native-A/P replacement component is our post-analysis, not a Chad question.
+- Methodological: validate key findings (esp. 04, 09 pickers) against the legacy DESKTOP client staff use - Yonatan is on web; visibility may differ.
+- Possible latent finding: if even an Administrator login lacks add/update, staff PM logins may be silently blocked on features Pergola pays for. One question to Brian/Camille: do staff hit similar walls?
+
+### I. Feature inventory built + scope decisions (Jun 23)
+
+Yonatan decisions this session (walk-through of gaps C / channels D / plays E):
+- Feature-adoption walkthrough: FINISH the systematic pass (not the lighter "table from existing"). Delivered as a new deliverable section (see below) plus a live-confirm punch-list.
+- Scope: market-rent finding = OUT; Chris's onboarding printout = OUT; Chris's appliance-standardization + acquisition-turnover-scope = IN as operational notes only (added before the placeholder in build_findings.js).
+- Business-continuity-risk framing = NOT added (keep efficiency framing).
+- Data channels: bank/card statements = unrealistic (Finding 11 stays qualitative, no markup $ figure); Zillow/Apartments top-funnel = not seen as a valuable deliverable (dropped from Phase 1; Finding 05 unchanged); workaround-file collection (Darcy/Bobby/Chris) = Phase 2 construction work, not Phase 1; service-issue export = Yonatan unsure how to pull, so the closed-issue teaser is deferred (stays a Phase 2 roadmap item, not done now).
+
+NEW deliverable section added to build_findings.js: Section 02 "Rent Manager Feature Inventory" (Findings renumbered to 03, Roadmap to 04). A complete adopt/fix/activate/confirm verdict table for every licensed add-on (from the §5 invoice detail) and every major in-platform module, each cross-referenced to F01-F11. Built from billing detail + live review; structurally validated (sections 01-04 in order, 5 builders wired, 22 rows, brackets balanced). Rebuild with node where available.
+
+VALUABLE CATCH from the systematic pass: the invoice carries a billed "RM12 API" line (~$95/mo, §5) but Camille said API/Open Access is NOT enabled. Likely the partner-integration API (AvidXchange/Zego) is active while self-serve Open Access is not - but unconfirmed. Flagged as a note in the inventory: a paid line for an unusable capability is either recoverable cost or a switch to flip for the Phase 2 utility build. Candidate Finding 12 if confirmed; ask Camille.
+
+LIVE-CONFIRM PUNCH-LIST (what Yonatan must check in the live system to truly close the systematic pass - prefer the legacy DESKTOP client staff use, since the review was on web):
+1. rmService (maintenance mobile) - do techs actually use the app, or is intake all text? (F04)
+2. rmInspection - adoption unconfirmed; the walkthrough paused here. Relevant to move-out inspections / make-ready (F09).
+3. Unit Availability (Web Developer Suite) - used?
+4. rmVoIP utilization - the ~$266/mo line: are call recording (5), eFax, and the 8 NDT licenses actually used vs. paid? (F10)
+5. RM12 API / Open Access - confirm what the $95 line covers vs. what Camille says is disabled (the API catch above).
+6. Native Accounts Payable vs AvidXchange - the untouched lane; needs a Chad session (cost-consolidation play).
+7. Validate the load-bearing findings (F04 issue volume, F09 empty pickers) against the desktop client to rule out web-only behavior.
