@@ -570,3 +570,122 @@ LIVE-CONFIRM PUNCH-LIST (what Yonatan must check in the live system to truly clo
 5. RM12 API / Open Access - confirm what the $95 line covers vs. what Camille says is disabled (the API catch above).
 6. Native Accounts Payable vs AvidXchange - the untouched lane; needs a Chad session (cost-consolidation play).
 7. Validate the load-bearing findings (F04 issue volume, F09 empty pickers) against the desktop client to rule out web-only behavior.
+
+## 15. Session update - June 24, 2026
+
+### A. Privilege wall PARTIALLY breached - Brian's keyword-toggle fixed SELECT, not ADD
+
+Brian worked the User Privileges screen live on the Jhonathan Day54 login (text exchange + screenshots). He searched the privilege tree by keyword **"estimates"** ("1 Filters Applied") and checked the boxes that surfaced - the **Utilities** and **POs/Estimates** subtrees (Manage Meter Estimates Settings; Purchase orders; Change/Approve/Fulfill POs; PO Workflows; Estimates; View estimates from all users), Enabled/Add/View/Edit - then on a second pass checked the **Delete** column too ("All boxes were checked EXCEPT Delete; I have now checked even Delete").
+
+Result on the JD login:
+- **GAINED (the positive progress):** can now ASSIGN Action/Category/Priority/Status from the pickers inside an EXISTING Make Ready template. The empty-picker symptom (Section 14.B) is resolved for selection. This confirms the Jun 23 "select-level access to the setup lists" half of the diagnosis - granting add/view/edit on the relevant setup nodes made the lookups populate.
+- **STILL BLOCKED (two distinct walls remain):**
+  1. **No Add control for NEW action items** - cannot add a new item (= a new Service Issue) to a template.
+  2. **Cannot enable Meter Estimates** - same hard error persists: "Insufficient privileges to add or update data."
+
+### B. Sharper diagnosis - the two remaining blocks live OUTSIDE the "estimates" keyword
+
+The keyword-search method is precisely why it is only half-fixed. The two remaining capabilities are governed by nodes the word "estimates" never surfaces:
+
+1. **"Estimates" (POs/Estimates) is NOT "Meter Estimates."** The POs/Estimates subtree Brian toggled (Purchase orders, PO Workflows, Estimates, View estimates from all users) is the A/P purchase-order-estimates feature - irrelevant to both blockers. The only relevant row under the filter is "Manage Meter Estimates Settings" (under Utilities), and that node alone is not sufficient to ENABLE/save the Meter Estimates config; that write needs the broader **Metered Utilities** add/update right (Meter Readings / Meter Types / parent Metered Utilities tree), which the "estimates" filter does not display.
+2. **The Make Ready "add item" right is in the Service Manager tree, not Estimates.** A Make Ready item is a Service Issue, so creating one is gated by **Service Manager > Service Issues (Add)** (and/or a Make Ready Items node). "estimates" never surfaces it, so Brian has not toggled it. This is exactly why SELECT now works but ADD does not.
+
+Net: same single root cause as Jun 23 (add/update privilege gap), now resolved for the select layer and isolated to two specific add/update nodes.
+
+### C. Next actions
+- [ ] **Re-log and retest first.** RM privilege changes typically require a logout/login to take effect. Brian's Delete-column toggle has not been retested on a fresh session - re-log before concluding it failed (this answers Brian's "try again and let me know").
+- [ ] **Two exact setup items confirmed (Jun 24 screenshot of Services > Service Setup).** Both blockers map to named setup lists, each in its own module column - so the privilege nodes are named after those modules, not "Estimates":
+  - **Make Ready > Make Ready Actions** - the missing Add button. Privilege search term for Brian: **"Make Ready"** (his "estimates" search never reached it).
+  - **Utilities > Meter Estimates** - NOT a search miss (correction): the "estimates" filter matches any node containing "estimate," so it DID surface "Manage Meter Estimates Settings" and Brian checked it - yet it still errors. That node is a single on/off Enabled flag with no Add column, so it cannot grant a data write. The error is literally "add or update DATA," which needs a meter DATA node with Add/Edit columns (likely Metered Utilities / Meter Readings / Meter Types - none of which contain "estimate," which is why the keyword search never pointed Brian at them). Search "Meter" for a row that HAS the Add/Edit columns and check them, then re-log. NB the Utilities parent already shows Add checked yet it still fails, so if no obvious meter Add node resolves it, this half goes to Camille for the exact node.
+- [ ] Sent Brian a short message (Jun 24) with those two search terms and the Add/Edit + re-log instruction. If it still fails, hand the same two node names to Camille.
+- [ ] Stop hand-toggling by keyword; that surfaced the wrong (A/P Estimates) subtree. Either Brian grants those two nodes directly or Camille confirms the exact node paths.
+- Reinforces the latent finding (Section 14.H): if an Administrator-flagged login needs these specific add nodes hand-granted one at a time, staff PM logins are likely silently blocked on add/update for features Pergola pays for. The two-pass nature of this fix is itself evidence for that finding.
+
+### D. Scope decision (Jun 24) - no web-vs-desktop caveat
+
+Yonatan: do NOT hedge findings with a web-vs-desktop disclaimer (reverses the caveat floated earlier this session). Rationale: Brian knows the audit runs on the web client; the web client is treated as the REFERENCE platform and tends to expose MORE than staff's desktop, not less. If a valuable capability exists on web that staff's desktop lacks, that becomes a recommendation ("move to the web client to get X"), not an audit limitation. Consequence: the desktop re-validation of F04/F09 is simply dropped (not needed), and any web-vs-desktop delta is surfaced as upside/opportunity, not a methodology hedge. Punch-list (Section 14.I) is executed web-only on this basis.
+
+## 16. Punch-list execution - June 24 (web client, per 15.D)
+
+Closing the Section 14.I live-confirm items. Order: rmInspection, rmVoIP, Unit Availability, rmService, RM12 API.
+
+### Item 1 - rmInspection [F09]: PAID (bundled) but DORMANT - no web footprint
+
+Checked via Command Launch search ("inspection") + the known menu map. No Inspections menu item, no inspection templates, no inspection records; the search returns only VENDOR records named "...Inspection" (Olsen Fire Inspection, Porcupine Home Inspections, westlind Inspections). 
+
+Invoice cross-ref (Section 5): rmInspection IS licensed - bundled into the RM Online Monthly Fee ($155/mo, per-2nd) together with WPS and rmService. So it is paid for and surfaces nowhere in the client.
+
+Nuance handled: rmInspection is RM's MOBILE inspection app, so a missing WEB menu item alone is not proof of non-use. But if techs ran inspections, templates + completed records would sync back into RM. The total absence of any inspection footprint (no templates, no records, nothing in search) indicates the capability is unprovisioned/unadopted, not merely mobile-only.
+
+VERDICT: Activate-candidate, same pattern as F01/F09 - paying for a turnover/move-out inspection tool that currently runs as a single make-ready action line ("Move Out Inspection") or on paper. Strengthens F09.
+
+Bundle note: the $155 RM Online fee bundles WPS + rmService + rmInspection, so the dollar is NOT isolable to rmInspection; judge the whole bundle's realization after the rmService check (Item 4).
+
+build_findings.js TODO (deliverable pass): inventory row ~line 346 "rmInspection / Walkthrough paused here; unconfirmed / Confirm live" -> "Licensed (RM Online bundle); zero web footprint = dormant; activate, ties F09."
+
+### Item 2 - rmVoIP [F10]: ALREADY CLOSED (no re-check) - corrected mid-session
+
+Not an open item; it was investigated and confirmed earlier this audit (Sections 14.A + 14.D). Caught myself about to re-investigate the call history - it is done:
+- Hannah Holm record (#2214) proved rmVoIP calls auto-log and auto-link when the caller's number is on file.
+- Camille's email CONFIRMED the mechanism (inbound caller number matched to a contact record; "Unlinked Calls" = numbers not in RM), which killed the "empty history = sync bug" theory - it was an unlinked call / wrong tab.
+- F10 downgraded to (a) the comms-logging observation (outbound RM email logs; inbound/individual two-way correspondence lives in Outlook; calls log without notation) and (b) the one spinning "Unlinked Calls" view = the single genuine RM support ticket.
+
+Cost read: rmVoIP is ACTIVELY used, so there is NO dormant-cost finding here (unlike rmInspection). Only residual = pure license right-sizing (8 NDT seats / 5 recording / eFax vs. active users), a billing fact not a UI check; low value given active use. Footnote on the Camille list, not pursued as a live check.
+
+### Item 3 - Unit Availability / Web Developer Suite [$75/mo]: CONFIRMED USED
+
+Yonatan confirmed RM publishes a vacancy/availability listing (Vacancy.pdf shared; could not machine-render locally - no poppler/PDF lib, PEP 668 blocks casual pip install - but the verbal confirmation settles it). Combined with Online Applications already known used (prospects enter RM at the application stage, F05), the Web Developer Suite ($75/mo, bundles Unit Availability + Online Applications) is REALIZED, not dormant. Positive-adoption note (the opposite of rmInspection): one of the few add-ons fully used. No finding; record as "Adopt = already done" in the inventory.
+
+### Item 4 - rmService [F04]: CLOSED by inference (no live check)
+
+rmService = RM's mobile maintenance app, bundled in the $155 RM Online fee (with WPS + rmInspection). Mobile-app use is not directly observable from web, but evidence in hand resolves it: 19,383 logged service issues = RM maintenance is heavily adopted (F04 is a strength), while closeouts carry notes but no photos/parts (F04/F11). Read: the bundle IS used (heavy issue logging), but rmService's richer point-of-work capture (photos, parts) is underleveraged - exactly the F04/F11 closeout-quality gap. No separate dormant-cost finding; folds into F04/F11 as a feature-depth gap. Confirm tech-app specifics with staff only if a maintenance session arises; not chased.
+
+### Item 5 - RM12 API / Open Access [F12 candidate]: ROUTE TO CAMILLE (not live-checkable)
+
+Camille said Open Access is NOT enabled, yet the $95 RM12 API line is billed (Section 14.G catch). Likely the partner-integration API (AvidXchange/Zego) is active while self-serve Open Access is off - either a paid line for a capability Pergola can't self-activate, or a switch to flip for the Phase-2 utility build. Not resolvable from the UI; a billing/RM-rep fact. Stays candidate F12 on the Camille list (already queued). NOT a live check.
+
+### PUNCH-LIST COMPLETE (June 24) - feature-inventory systematic pass closed
+
+All Section 14.I live-confirm items resolved, web-only:
+1. rmInspection - paid (RM Online bundle), DORMANT -> activate (ties F09)
+2. rmVoIP - actively used; F10 already closed (no dormant cost)
+3. Unit Availability / Web Suite - CONFIRMED used (realized)
+4. rmService - bundle used; rich-capture underleveraged -> folds into F04/F11
+5. RM12 API - candidate F12, routed to Camille
+6. (Native A/P vs AvidXchange - Chad meeting Thu/Fri, separate track)
+
+Net: deliverable Section 02 (Feature Inventory) is CLOSED except the API line (Camille) and the AvidXchange lane (Chad). Remaining work pivots to the deliverable.
+
+build_findings.js Section 02 inventory rows to update in the deliverable pass:
+- rmInspection: dormant -> activate (ties F09)
+- rmService: used; depth gap, ties F04/F11
+- Unit Availability: used / realized
+- rmVoIP: used; F10 closed
+- RM12 API: candidate F12, pending Camille
+
+## 17. Deliverable source updated - June 24 (build_findings.js)
+
+Applied the Section 16 deliverable-pass edits. All in build_findings.js source; node is NOT on this Mac (no node/bun/deno/nvm), so the .docx must be rebuilt where node lives, then swapped into 01_Deliverable.
+
+Edits made (8 total):
+- Section 02 Feature Inventory, 5 verdict rows: rmInspection (Confirm -> Activate; dormant, ties F09), rmService (Confirm -> Adopt; deepen point-of-work capture, F04/F11), Unit Availability (Confirm -> Adopt; confirmed used), rmVoIP (Adopt; in use, F10; dropped the "verify utilization" hedge), RM12 API (status reworded, pending RM rep; still Clarify). Plus consistency fixes: legend Confirm-clause -> "Investigate or Clarify"; methodology note reframed to web-client-is-reference per 15.D (desktop hedge removed); closing summary "Six items remain" -> "Two items remain" (API with Camille, A/P with Chad).
+- F09: "What the live review found" gains the June 24 partial-breach sentence (select layer restored; two add-level actions still fail). Recommendation bullet 1 rewritten to name the two specific remaining rights (add a Make Ready Action; Metered Utilities add/update gating Meter Estimates), kept gated. Status/open item updated to partial-progress. New bullet under "What exists in RM" flags rmInspection as owned-but-dormant.
+
+Verification (no JS runtime available): string-aware bracket scan = stack clean, zero mismatches, nothing unclosed at EOF. Raw {} count is off by exactly 2 = the 2 template-literal ${} expressions (checker artifact, NOT a real imbalance; () and [] balanced). Escaped quotes intact. Safe to rebuild.
+
+OPEN: rebuild .docx with node, swap into 01_Deliverable. Deliverable is now current except Brian-gated (privilege/GL/PayLease), Chad-gated (AvidXchange A/P), Camille-gated (RM12 API line).
+[RESOLVED in Section 18 - node now installed locally; .docx rebuilt on the Mac.]
+
+## 18. Local toolchain installed - June 24 (retires the "node not local" caveat)
+
+Installed on the Mac via Homebrew at user request: Node.js v26.3.1 + npm 11.16.0, and poppler 26.06.0 (pdftotext + pdftoppm - the latter is what the Read tool needs to render PDFs; Vacancy.pdf-type shares are now readable locally). This retires the standing "node is not on the local Mac" assumption (Sections 14.G, 17): the deliverable can now be rebuilt on this machine.
+
+Project node setup: docx@9.7.1 added (package.json + package-lock.json created; node_modules gitignored). build_findings.js requires only `docx` + built-in `fs`.
+
+build_findings.js output path made ADAPTIVE (non-breaking): writes to the /home/claude web-sandbox path when that directory exists, else next to the script locally (path.join(__dirname, ...)). So both the web sandbox and a local `node build_findings.js` work without further edits.
+
+REBUILT the deliverable locally. IMPORTANT: the on-disk .docx was STALE (dated Jun 22, predating the Jun 23 Section 14.G reconciliation), so this rebuild brings it current through ALL Jun 23 + Jun 24 changes (Section 02 inventory, F04/05/09/10/11 revisions, the three-tier roadmap, plus today's 8 edits). Verified: valid "Microsoft Word 2007+", ~34.7KB, node --check passes, and all five new phrases present in word/document.xml. The 01_Deliverable copy in the web project is now BEHIND this local copy if anyone rebuilds there.
+
+Local rebuild command going forward: `node build_findings.js` from /Users/mac1/Projects/pergola.
+
+Git: build_findings.js + Pergola_Audit_Findings.docx modified; .gitignore + package.json + package-lock.json are new/untracked (commit when ready; node_modules is ignored).

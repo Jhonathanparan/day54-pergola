@@ -333,8 +333,8 @@ function buildFeatureInventory() {
   return [
     sectionHeading("02", "Rent Manager Feature Inventory"),
     rule(),
-    bodyText("Brian's framing was whether Pergola is squeezing the juice out of what it already pays for. This is the complete inventory: every licensed add-on and major in-platform module, what it does today, and a verdict. Adopt means use it or keep using it; Fix means owned and used but misconfigured; Activate means owned but sitting idle; Confirm means adoption is not yet verified in the live system. Verdicts cross-reference the detailed findings (F01–F11)."),
-    bodyText("It is built from the billing detail (what is actually licensed) and the live system review. Items marked Confirm need a final check on the legacy desktop client staff use, since the review was run on the web version.", { italics: true, color: "555555" }),
+    bodyText("Brian's framing was whether Pergola is squeezing the juice out of what it already pays for. This is the complete inventory: every licensed add-on and major in-platform module, what it does today, and a verdict. Adopt means use it or keep using it; Fix means owned and used but misconfigured; Activate means owned but sitting idle; Investigate or Clarify means one question is still open with the team or the RM rep. Verdicts cross-reference the detailed findings (F01–F11)."),
+    bodyText("It is built from the billing detail (what is actually licensed) and the live system review, conducted on the web client — Rent Manager's current platform. Where the web client exposes a capability staff are not using, that is an adoption opportunity, not an audit gap.", { italics: true, color: "555555" }),
     spacer(120),
     roadmapSubheading("Licensed add-ons (billed monthly)"),
     inventoryTable([
@@ -342,13 +342,13 @@ function buildFeatureInventory() {
       ["Rent Manager Online (web)", "Owners ramping; not yet rolled to staff", "Adopt — finish web migration"],
       ["Tenant Portal (WPS)", "Payments + ~75% of work orders; leases not shown", "Fix — enable lease post-back (F02)"],
       ["Owner Portal / upward reporting", "Not used; no staff reporting to ownership", "Activate — Brian's stated want"],
-      ["rmService (maintenance mobile)", "Intake is mostly text, not the app", "Confirm — likely underused (F04)"],
-      ["rmInspection", "Walkthrough paused here; unconfirmed", "Confirm live"],
+      ["rmService (maintenance mobile)", "Maintenance heavily logged in RM; mobile photo/parts capture underused", "Adopt — deepen point-of-work capture (F04/F11)"],
+      ["rmInspection", "Paid (RM Online bundle); no system footprint — dormant", "Activate — structure move-out inspections (F09)"],
       ["Online Applications (Web Dev Suite)", "Working — prospects enter at application", "Adopt (F05 front-funnel gap)"],
-      ["Unit Availability (Web Dev Suite)", "Unconfirmed", "Confirm live"],
+      ["Unit Availability (Web Dev Suite)", "Confirmed — RM publishes a live vacancy listing", "Adopt — already in use"],
       ["Unlimited Text Broadcast", "Outbound blasts go out and log", "Adopt"],
-      ["RM12 API ($95/mo)", "Rep says API/Open Access not enabled", "Clarify — paid vs. enabled (see note)"],
-      ["rmVoIP / phone (~$266/mo)", "Calls auto-link but go un-notated; recording/eFax unverified", "Adopt — verify utilization (F10)"],
+      ["RM12 API ($95/mo)", "Open Access off per rep, yet $95 line billed — pending RM rep", "Clarify — paid vs. enabled (see note)"],
+      ["rmVoIP / phone (~$266/mo)", "Actively used; calls auto-link but go un-notated", "Adopt — in use (F10)"],
       ["VPO printed notices (~$58/mo)", "~49 batches/mo, actively used", "Optimize — shift to email (F08)"],
       ["Orion AI / Smart Bills / Bank Sync", "Not licensed", "Skip now — Phase 3 footnote"]
     ]),
@@ -368,7 +368,7 @@ function buildFeatureInventory() {
       ["Accounts Payable (native vs AvidXchange)", "AvidXchange in use; native A/P unreviewed", "Investigate (Chad)"]
     ]),
     spacer(120),
-    bodyText("Six items remain marked Confirm or Investigate — the final live-system checks that close the inventory: rmService and rmInspection adoption, Unit Availability, rmVoIP utilization, the API / Open Access status, and native Accounts Payable versus AvidXchange.", { color: "555555" }),
+    bodyText("The feature-level checks are now closed on the web client: rmService and rmInspection adoption, Unit Availability, and rmVoIP utilization are all resolved above. Two items remain open, both awaiting outside input rather than a further system check — the RM12 API / Open Access status (with the RM rep) and native Accounts Payable versus AvidXchange (with Chad).", { color: "555555" }),
     spacer(120)
   ];
 }
@@ -557,9 +557,10 @@ function buildFindings() {
         "The Make Ready module is included in Pergola's contract and its interface is modern and capable.",
         "Each make-ready item is a full Service Issue: Action, Description, Category, Priority, Status, Assigned To, Vendor, due-date and scheduled-date offsets, notify-when-ready, and a nested checklist.",
         "A template is a sequenced set of these items that attaches to one or more properties, with an optional Enforce Action Sequence control.",
-        "This is materially richer than a spreadsheet: every turnover step becomes a dated, assignable, trackable work order shared across the team."
+        "This is materially richer than a spreadsheet: every turnover step becomes a dated, assignable, trackable work order shared across the team.",
+        "Separately, a structured inspection tool (rmInspection) is already included in the same subscription but sits entirely unused; today the move-out inspection exists only as a single make-ready action line, not a structured, photo-capable record."
       ]},
-      { label: "What the live review found", value: "The module is owned and the underlying Service Manager taxonomy is populated and actively used: eight make-ready actions and a 21-item issue-category list both exist in Service Setup. One template already exists — \"Rochester Heights,\" with six configured items — but the board has never been put into service. On the audit login the template builder's Action, Category, Priority, and Status pickers return no results despite those lists being populated; the Service Setup lists are view-only; and the existing template is locked with Save disabled even under administrator rights. Live testing isolated the cause: selecting the same property the working template uses did not populate the pickers (ruling out location scoping), and enabling a separate feature, Meter Estimates, returned an explicit Rent Manager error — \"Insufficient privileges to add or update data.\" The three symptoms collapse into one root cause: the audit login lacks add/update privileges across the Service Manager and Metered Utilities modules. The \"Administrator\" flag grants visibility, not the per-feature add/edit/delete rights, so existing data renders but every interactive action is inert. This is an access problem, not absent configuration." },
+      { label: "What the live review found", value: "The module is owned and the underlying Service Manager taxonomy is populated and actively used: eight make-ready actions and a 21-item issue-category list both exist in Service Setup. One template already exists — \"Rochester Heights,\" with six configured items — but the board has never been put into service. On the audit login the template builder's Action, Category, Priority, and Status pickers return no results despite those lists being populated; the Service Setup lists are view-only; and the existing template is locked with Save disabled even under administrator rights. Live testing isolated the cause: selecting the same property the working template uses did not populate the pickers (ruling out location scoping), and enabling a separate feature, Meter Estimates, returned an explicit Rent Manager error — \"Insufficient privileges to add or update data.\" The three symptoms collapse into one root cause: the audit login lacks add/update privileges across the Service Manager and Metered Utilities modules. The \"Administrator\" flag grants visibility, not the per-feature add/edit/delete rights, so existing data renders but every interactive action is inert. This is an access problem, not absent configuration. A follow-up privilege grant on June 24 confirmed the diagnosis directly: it restored the select layer — the builder's Action, Category, Priority, and Status pickers now populate and items can be assigned to an existing template — while two narrower add-level actions still fail (adding a new make-ready action, and enabling Meter Estimates), isolating what remains to two specific privileges." },
       { label: "The gap", value: "Turnover lives in Excel not by preference but because the in-system tool the team already owns has never been usable to them: the add/update privileges that make the board configurable were never granted. The capability is present; the access is not." },
       { type: "bullets", label: "Why it matters", values: [
         "Turnover documentation is a priority Brian named directly. \"Clipboard and experience\" loses repair records, so a fix done during a turn cannot be charged back later.",
@@ -567,13 +568,13 @@ function buildFindings() {
         "If the board's unit view meets Darcy's needs, it replaces the Excel sheet with something the whole team can see."
       ]},
       { type: "bullets", label: "Recommendation", values: [
-        "Resolve the privilege gap first: the account admin grants the PM/audit login add/edit/delete on the Service Manager nodes (Service Issues, Inspections, Make Ready Items) and select-level access to the Service Setup lists, then retry. If a full-privilege login also hits the wall, escalate to the RM rep with the exact error string rather than re-toggling the Administrator flag, which alone does not grant these rights.",
+        "Resolve the privilege gap first. Select-level access has now been granted and works; two specific add-level rights remain to enable on the audit/PM login — the right to add a Make Ready Action (the missing Add control on make-ready items) and add/update on the Metered Utilities data (which gates enabling Meter Estimates). Grant those two and retry. If a full-privilege login still hits the wall, escalate to the RM rep with the exact error string — \"Insufficient privileges to add or update data\" — rather than re-toggling the Administrator flag, which alone does not grant these rights.",
         "Once unblocked, build a turnover template (a draft 8-step sequence with date offsets is ready) and attach it to one property.",
         "Validation gate: apply it to one live turning unit and confirm two things specifically — a multi-unit, line-per-unit view and automatic tenant in/out pull. Adopt only if it genuinely improves on Darcy's Excel; do not force a switch that leaves her worse off.",
         "Once validated, extend to the other properties and the Minneapolis/St. Paul side."
       ]},
       { label: "Effort to fix", value: "Medium and front-loaded. Resolving the permissions and scoping and configuring assignable Maintenance Techs is the real work; once done, building templates and running turns is low-effort and ongoing. No system limitation found; this is access and configuration, not capability." },
-      { label: "Status / open item", value: "In progress, pending the privilege fix. The same add/update gap also blocks Finding 01 (Meter Estimates), so resolving it unblocks two findings at once. Once access is granted, two adoption prerequisites still need live verification — a multi-unit, line-per-unit view and automatic tenant in/out pull — both cited by Bobby (St. Paul) and Darcy (Rochester). Quick-win parallel path: a native RM turnover report built from existing data can meet Darcy's core reporting need (a portfolio roster) even before the board is activated. The board is the workflow upgrade; the report is the faster roster fix." }
+      { label: "Status / open item", value: "In progress. A June 24 privilege grant restored the select layer (pickers populate; assignment works), confirming the diagnosis and narrowing the blocker to two specific add-level rights — adding a Make Ready Action, and enabling Metered Utilities / Meter Estimates. The same Metered Utilities gap also blocks Finding 01, so closing it unblocks two findings at once. Once those two rights are granted, two adoption prerequisites still need live verification — a multi-unit, line-per-unit view and automatic tenant in/out pull — both cited by Bobby (St. Paul) and Darcy (Rochester). Quick-win parallel path: a native RM turnover report built from existing data can meet Darcy's core reporting need (a portfolio roster) even before the board is activated. The board is the workflow upgrade; the report is the faster roster fix." }
     ]),
     spacer(200),
 
@@ -755,6 +756,10 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync("/home/claude/Pergola_Audit_Project/01_Deliverable/Pergola_Audit_Findings.docx", buf);
-  console.log("Done");
+  const path = require("path");
+  const webOut = "/home/claude/Pergola_Audit_Project/01_Deliverable/Pergola_Audit_Findings.docx";
+  // Use the web-sandbox path when it exists; otherwise write next to this script (local run).
+  const outPath = fs.existsSync(path.dirname(webOut)) ? webOut : path.join(__dirname, "Pergola_Audit_Findings.docx");
+  fs.writeFileSync(outPath, buf);
+  console.log("Done:", outPath);
 });

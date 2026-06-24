@@ -1,0 +1,24 @@
+{
+  "name": "pergola",
+  "version": "1.0.0",
+  "description": "Day54, LLC - prepared by Yonatan - snapshot June 18, 2026",
+  "main": "build_findings.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jhonathanparan/day54-pergola.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jhonathanparan/day54-pergola/issues"
+  },
+  "homepage": "https://github.com/Jhonathanparan/day54-pergola#readme",
+  "dependencies": {
+    "docx": "^9.7.1"
+  }
+}
