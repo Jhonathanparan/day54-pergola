@@ -762,10 +762,9 @@ Processes the items parked in Section 20.C. Full analysis of the Jun 26 Chad cal
 3. VCC rebate % and per-check mailing fee (actual numbers, to model check -> VCC/ACH shift).
 4. Monthly INVOICE volume (not check count) - decides Smart Bills (low-mod) vs Avid (med-high) fit.
 5. Does any invoice REQUIRE two approvers (Joe AND Brian), or is Chad-only sufficient now?
-6. Exact current RM plan tier; have RM quote Plus/Premium + Smart Bills.
-7. Avid contract terms - minimums, overage structure, renewal/end date, early-termination.
-8. How many vendors still MAIL paper (Xcel et al.)? - a problem for either system, fix regardless.
-9. Joe's card setup - number of cards, monthly volume, and whether Joe would accept Ramp (he is the gatekeeper).
+6. Avid contract terms - minimums, overage structure, renewal/end date, early-termination.
+7. How many vendors still MAIL paper (Xcel et al.)? - a problem for either system, fix regardless.
+- DROPPED (Jun 26, Yonatan): the RM-plan-tier question - we already KNOW Pergola is on a legacy itemized/custom invoice plan, NOT an RM set tier, which is itself why Orion is unavailable; the RM invoice data is in Section 5. Also dropped the Joe's-card-detail question - not needed; Ramp can still be recommended without it.
 - Brian/Joe items: PayLease access still blocked (Chad can't grant - Brian/Joe); confirm Joe has no utility-tracking desire (pays cities directly).
 
 ### E. Deliverable changes (in working draft)
