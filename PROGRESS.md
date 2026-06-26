@@ -699,3 +699,38 @@ The rep's "API / Open Access not enabled" referred to the separate self-serve Op
 The one genuinely loose thread - whether Avid rides on THIS line vs another mechanism - is already covered by the Chad/AvidXchange session (Thu/Fri), so no separate Camille email is warranted.
 
 Consequence: the Camille list now holds ONLY the privilege-node re-ask (gated on Brian). Deliverable updated + rebuilt: inventory RM12 API row -> "Adopt - justified cost (self-serve Open Access = Phase 2 only)"; the API note reframed from "contradiction to resolve" to resolved; closing summary "two items remain" -> "one item remains" (A/P vs Avid, with Chad); legend "Clarify" verdict dropped (no longer used).
+
+## 20. Session update - June 26, 2026 (transcript re-audit + deliverable conclusions)
+
+Full re-read of every unique Pergola interview transcript (kickoff, Jocelyn, Bobby, Darcy, Chris, Mark, Otis, Darius, Chad utility Jun 19, both Brian calls) cross-checked against the 11 findings and this log to surface missed items. Also pulled the new Jun 26 Chad call (AvidXchange / cost-breakdown) for cost-attribution context only; that meeting is to be processed in full separately (see C). Conclusions below were decided with Yonatan, item by item.
+
+### A. Confirmed additions / changes to existing findings
+
+**F07 (two-location split) - REFRAME.** The maintenance cross-location app-visibility pain is the ORIGINAL driver of the consolidation research, per Joe at kickoff: a tech logged into one RM location cannot see the other location's work orders on the app and must switch locations, which is why work gets relayed by text (e.g., Mark forwards Bloomington work orders to Chris). Frame F07 as first a daily maintenance-visibility problem; the licensing/cost footprint and merge feasibility are the structural fix, not the headline. Connects F07 <-> F04.
+
+**F04 (maintenance closeout) - ADD owner motivations + reassurance.** From Brian at kickoff, three angles to fold in: (1) liability - untracked "while-you're-here" extras create exposure (his example: a tech hanging a flat-screen TV that could break); (2) performance metric - tracked extras distinguish a productive tech from one being "led around" by tenants, useful for annual reviews; (3) an enforcement mechanism Brian himself proposed - gate the next work order / parts request on closing out the current one. Also: field reality is BETTER than Brian assumed - his "I virtually guarantee closeouts aren't happening" / paper-door-tag assumption is contradicted by the techs (Otis, Chris, Mark all write short notes on the service order and close it) and by the live RM review (closed tickets carry resolution notes). Present this as reassurance; the real gap remains photos + parts/chargeback (F11).
+
+**F11 (parts / procurement) - CORRECTIONS.**
+- Cost attribution by PROPERTY and by OWNER already EXISTS; the blanket "no breakdown by property/job/tech" is wrong and must be removed. Mechanism: PO codes per property at point of purchase on vendor accounts (Menards on contractor/contractual pricing; Home Depot on a separate card), statements show POs, multi-property buys get split codes (e.g., 889/908) and Chad divides them out. Owner split differs by side: Joe's side uses credit cards (for points) with Joe/Mark/Chris purchases commingled on one monthly statement that Chad allocates line-by-line; Brian's side runs through AvidXchange + check reimbursement; Darcy (Rochester) also uses a card. Returns usually carry NO PO, so they leak from attribution.
+- Real gap is therefore (a) OPERATIONAL granularity one layer down - per job/work-order (for chargeback), per unit, per tech, turnover-vs-routine, category volume - which lives in the financial/GL layer (Chad's manual reconciliation), not the operational/work-order layer; and (b) the heavy MANUAL BURDEN on one person (Chad) to split a commingled card statement by hand. Reframe the "what this costs" bullets: they CAN budget per property/owner; what they cannot see is WHY a building is expensive (per-unit/per-issue drivers), and they cannot tie parts to a job for chargeback. Cleaner expression of the cost-data-without-operational-data through-line.
+- Parts-in-notes: change "no record" to "UNSTRUCTURED record" - Otis (and others) write parts as prose in the closeout note; it just is not in the structured Work Orders grid with Cost/Sale Price, so it cannot drive chargeback or attribution.
+- Procurement is UNSTAFFED BY DESIGN: Pergola cut the dedicated maintenance-manager role, so techs absorbed ordering/scheduling/coordination (Chris). Fix is tooling/process (supplier consolidation + online ordering + delivery + par-lists), NOT a new hire and NOT a PM chore. Chris's "manager pre-walks units to stock/order" idea is aspirational, not current practice, and should not be assigned to the already-overloaded PMs.
+- Minor inventory nuance: Mark salvages good used parts from removed appliances and stores them per building; salvaged stock has no SKU/cost and would sit outside any reorder logic if an inventory system is ever scoped.
+
+**Logging discipline - NEUTRAL STRUCTURAL note (NO names).** Logging discipline varies across the team and tracks the person, not the system (owners categorize every call/text/email with tags; some PMs log everything, others keep individual email in Outlook; techs write short notes). Capture structurally where relevant (F04/F10) as "practice varies; the owners-level discipline is the standard worth generalizing." Do NOT name individuals or publish a per-person scorecard (partner-neutrality guardrail).
+
+### B. Items considered and DROPPED
+
+- Darius RM-app failure / Bobby-proxy entry: isolated to Darius, no other tech reported it; treated as user-specific error, not a finding.
+- Paper door "hanging tag" as the closeout location: not the norm (techs do write short RM notes); flipped into the F04 reassurance point above.
+- PM turnover-walkthrough inconsistencies (PM-with-resident vs PM-pre-check-then-tech vs sheet-review): minor, would read as nitpicking; not carried.
+- Move-in electric-setup friction (Jocelyn): tenant-behavior nuisance, not an RM gap; dropped as unimportant.
+
+### C. Parked for the dedicated Jun 26 Chad meeting (process separately)
+
+- Full AvidXchange-vs-Orion analysis (Avid ~$700-800/mo, was $1,000-1,200 in 2023; Brian's "$18K" = ~$14K RM + ~$4K+ Avid/yr - refines the Section 5 / Section 13 spend reconciliation). Orion (RM AI: bank sync, smart bills/receipts/checking) integrated into RM in 2025, would more or less replicate Avid; switching cost vs ~6-7 years on Avid is the open question.
+- Ramp / controlled expense-card recommendation - strongly reinforced by the commingled-credit-card manual-split burden on Chad; would auto-categorize, enforce spend controls, and split by entity (Rochester / Crystal / Brian / Joe). To be added as an F11-adjacent recommendation when the meeting is processed.
+
+### D. Deliverable working copy
+
+Created `Pergola_Deliverable_Working_Draft.md` - a separate, human-readable working version of the current deliverable with the A-section conclusions integrated and marked [Updated Jun 26], kept distinct from the formal `Pergola_Audit_Findings.docx` (the build_findings.js output). build_findings.js is NOT yet edited; the working draft is the staging ground until changes are finalized and then ported back into build_findings.js for the .docx rebuild.
