@@ -773,3 +773,29 @@ Processes the items parked in Section 20.C. Full analysis of the Jun 26 Chad cal
 - Feature-inventory: "Accounts Payable (native vs AvidXchange) - Investigate (Chad)" RESOLVED -> F12; Orion row -> "Investigate - quote vs AvidXchange (F12)".
 - Roadmap: AvidPay cost optimization added to Tier 1; A/P decision (Orion vs Avid quote) + Ramp rollout added to Tier 2.
 - build_findings.js still NOT edited; working draft remains the staging ground.
+
+## 22. Session update - June 26, 2026 (Zego/PayLease utility-capability research + F01 reframe)
+
+Own research into Zego (formerly PayLease) utility capabilities, prompted by the Chad call. Significant for F01.
+
+### A. Zego utility suite - THREE distinct products
+1. Resident Billing (RUBS / submetering) - what Pergola uses on Brian's side; splits utility bills across residents, itemizes rent + utilities into one statement.
+2. Utility Expense Management - SEPARATE product; Zego auto-retrieves utility invoices directly from providers, audits them, resolves errors, pays them, and posts to accounting. Works for OWNER-ONLY utilities (no RUBS required). Also flags residents who never put utilities in their name.
+3. Zego Insights (Utility Intelligence) - analytics layer: dashboard tracking CONSUMPTION (not just cost), drill-down by portfolio/property/utility/timeframe, benchmarking, and INTELLIGENT HIGH-USAGE ALERTS driven by historic-vs-average usage (catches spikes/leaks/errant meters early). Ingests bills via AI directly from providers.
+
+### B. Implication for F01 - REFRAME
+- The utility anomaly dashboard we scoped as a Day54 Phase-2 BUILD is essentially an OFF-THE-SHELF Zego add-on (Insights + Expense Management).
+- F01 headline recommendation pivots: BEFORE building anything, evaluate turning on / subscribing to Zego Insights + Utility Expense Management - delivers the leak/spike alerts Brian and Joe want, natively, no custom pipeline. The Day54 build is the FALLBACK, justified only if Zego's native analytics fall short or the add-on prices poorly.
+- Shifts the open question from "can we build it" to "what does the Zego add-on cost, and is any of it already licensed" - still gated on the PayLease access stuck with Brian.
+- De-prioritizes the RM-side Open Access / API-ingest line (an F01 Phase-2 prereq): if anomaly detection lives in Zego natively, pulling consumption into RM is no longer the primary path.
+
+### C. The Joe-side data gap
+- Zego Insights / Expense Management work by INGESTING utility bills. Brian's RUBS side: bills already flow through Zego. Joe's side: pays providers directly, no RUBS, and - as far as we know - no Zego utility module, so there is NO utility data in any system to analyze on his side.
+- We have little insight into Joe's setup. Needs an OPEN, assumption-free outreach (paragraph form, NOT a question list - per Yonatan) so Joe describes how he handles utilities end to end and whether any data source exists to power anomaly detection on his side. The original "track utilities" ask that seeded F01 may have come from Joe about his own house/common meters.
+
+### D. Open follow-ups added
+- [ ] Joe: open-ended outreach on how he handles utilities end to end (systems, bill payment, tracking, desired visibility). Drafted as a paragraph.
+- [ ] Zego (via Brian/Chad once access lands): is Zego Insights and/or Utility Expense Management already licensed, and what would they cost to add? Compare to a Day54 build.
+
+### E. Deliverable change
+- F01 reframed in working draft: lead recommendation = evaluate Zego native Insights / Expense Management before any build; build is the fallback; Joe-side data gap called out. Roadmap Tier 2 utility item updated accordingly. build_findings.js still untouched.
