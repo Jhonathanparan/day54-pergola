@@ -5,7 +5,7 @@
 >
 > **Prepared by:** Day54, LLC · **For:** Brian Pergament, Pergola Management · **Date:** June 2026 [DRAFT]
 >
-> **Still parked for the dedicated Jun 26 Chad meeting (not yet integrated):** full AvidXchange-vs-Orion analysis, and the Ramp / controlled expense-card recommendation. See PROGRESS.md §20.C.
+> **Jun 26 Chad meeting now processed** (PROGRESS.md §21): AvidXchange/Orion analysis integrated as **Finding 12**; the controlled expense-card (Ramp) recommendation as **Finding 13**.
 
 ---
 
@@ -20,7 +20,7 @@ Pergola is a well-run, intentionally right-sized company of ~600 units across Mi
 **Audit lanes:** RM feature adoption · two-location workflow consistency · maintenance closeout & turnover documentation · utility trend visibility.
 
 ### Software spend, reconciled
-The kickoff framed spend as ~$18K/yr and "half-used." LCS (Rent Manager) bills ~$14.8K/yr directly ($14.1K core + ~$0.7K VPO printed notices). The remainder is the integration partners — AvidXchange (A/P) and Zego/PayLease (tenant payments) — billed separately. *(Note: the Jun 26 Chad call sharpens the AvidXchange figure to ~$700–800/mo; full reconciliation pending that meeting's processing — see PROGRESS.md §20.C.)*
+The kickoff framed spend as ~$18K/yr and "half-used." LCS (Rent Manager) bills ~$14.8K/yr directly ($14.1K core + ~$0.7K VPO printed notices). The remainder is the integration partners — AvidXchange (A/P) and Zego/PayLease (tenant payments) — billed separately. AvidXchange runs ~$700–800/mo (figure to be confirmed against an actual invoice); critically, that spend is the paid **AvidInvoice** piece — the **AvidPay** payment rail is no-cost for RM users above a payment-volume threshold, so part of the bill may be recoverable without any system change (see Finding 12).
 
 Two carry-forwards: (1) the subscription spans ~7 separately-numbered RM accounts, the licensing footprint of the two-location structure (F07); (2) RM's AI/automation add-ons (Orion AI, Smart Bills, Bank Sync) are not currently licensed — the baseline if AI tooling is revisited later.
 
@@ -45,7 +45,7 @@ Complete adopt/fix/activate/investigate verdict for every licensed add-on and ma
 | RM12 API ($95/mo) | Powers the active AvidXchange integration; only API line billed | Adopt — justified cost (Open Access = Phase 2 only) |
 | rmVoIP / phone (~$266/mo) | Actively used; calls auto-link but go un-notated | Adopt — in use (F10) |
 | VPO printed notices (~$58/mo) | ~49 batches/mo, actively used | Optimize — shift to email (F08) |
-| Orion AI / Smart Bills / Bank Sync | Not licensed | Skip now — Phase 3 footnote *(revisit vs AvidXchange — Chad meeting)* |
+| Orion AI / Smart Bills / Bank Sync | Not licensed; requires RM Plus/Premium tier | Investigate — quote vs AvidXchange (F12) |
 
 ### In-platform modules (included)
 | Feature / Module | Status today | Verdict |
@@ -58,9 +58,9 @@ Complete adopt/fix/activate/investigate verdict for every licensed add-on and ma
 | Prospects / Leasing Board | Used only at application | Fix front-funnel (F05) |
 | General Ledger / Accounting | Used; utility coding drifts by side | Adopt — standardize (F06) |
 | Blue Moon eSignatures | Signing works; portal post-back off | Fix setting (F02) |
-| Accounts Payable (native vs AvidXchange) | AvidXchange in use; native A/P unreviewed | Investigate (Chad) |
+| Accounts Payable (AvidXchange vs Orion/Smart Bills) | AvidXchange in use ~$700–800/mo; Orion not licensed | Optimize now / quote the alternative (F12) |
 
-One item remains open pending outside input rather than a system check: native A/P vs AvidXchange (the Chad session).
+The A/P lane is now reviewed (F12): AvidXchange is working but under-optimized on cost, and Orion/Smart Bills is a quote-worthy alternative rather than a presumed switch.
 
 ---
 
@@ -140,7 +140,24 @@ Priority key: **Quick Win** (team can do directly) · **High Impact** (significa
   3. Log parts on the work order for chargeback (recoverable tenant-damage money; per-job attribution at near-zero friction; give-away = attach the receipt photo).
   4. Full RM inventory only if the logging habit proves sustainable (auto-decrement via work-order items); for a 3-tech/600-unit shop it may cost more admin time than it saves.
   - *Minor inventory nuance [Updated Jun 26]:* salvaged good used parts (e.g., Mark's practice) carry no SKU/cost and would sit outside any reorder logic if inventory is scoped.
-- **Adjacent recommendation parked for the Chad meeting:** a controlled expense-card platform (Ramp) — strongly reinforced by the manual commingled-card split burden; would auto-categorize, enforce spend controls, and split by entity. To be integrated after the Jun 26 Chad meeting is processed.
+- **Company-card spend / Ramp:** now its own finding — see **Finding 13**.
+
+### Finding 12 — Accounts Payable: AvidXchange Works but Is Under-Optimized on Cost; Orion/Smart Bills Is a Quote-Worthy Alternative, Not a Presumed Switch · *High Impact* · **[Added Jun 26]**
+- **Current state:** Paperless A/P via AvidXchange since ~2019; Chad is sole admin. Approval has simplified to mostly Chad (only large/unique/disputed route to Joe/Brian). Payments via ACH autopay, paper check (Avid now charges to mail; ~2-week lag), and virtual card (small rebate, immediate cash-out, some vendor pushback). Cost ~$700–800/mo (figure soft — to confirm against an invoice).
+- **Pain points:** AI miscategorization (account-number dash bug, "I"-as-"1" misreads, **duplicate invoices paid twice**, statements read as invoices, stylized fonts); exception vendors bypass it entirely (Menards, Home Depot, mortgage, Xcel paper); one-invoice-per-PDF intake; approval-queue latency → late fees.
+- **The cost is being misread:** AvidXchange = **AvidPay** (payment rail — no-cost for RM users if ≥50% of payments route through it; ~$4–6K/yr savings) + **AvidInvoice** (the paid capture/approval automation). So the monthly spend is likely AvidInvoice + check-mailing fees, and **part may be recoverable with no migration** by confirming the 50% AvidPay threshold and shifting checks → virtual card/ACH.
+- **Orion/Smart Bills (RM native AI A/P)** replicates Avid (AI capture, vendor email intake, ACH/check/VCC) and adds Smart Receipts (mobile), Smart Check Scanning, and Bank Sync + electronic reconciliation. **Three gates:** (1) requires **RM Plus/Premium tier** — Pergola isn't on it, so switching means repricing the whole RM subscription, possibly above the Avid line it replaces (the make-or-break unknown); (2) **single-reviewer approval only** (Avid does multi-tier) — probably fine given Chad-mostly approval, but confirm no dual Joe+Brian requirement; (3) RM positions Smart Bills for low-moderate volume/in-house, Avid for med-high/outsourced — need the real invoice count.
+- **Recommendation (sequenced):**
+  1. *Quick win, no migration:* confirm AvidPay 50% status, shift checks → virtual card/ACH, right-size the bill.
+  2. *Decision:* get two quotes side by side — (RM Plus/Premium + Smart Bills) vs. (current RM + optimized Avid). Switch only if the Orion total ≤ optimized-Avid total **and** single-reviewer approval is sufficient.
+  3. *Ask RM:* can Smart Bills (capture) coexist with no-cost AvidPay (payment rail)? If yes, a best-of-both option — drop paid AvidInvoice, keep the free payment rail + vendor network.
+- **Effort:** low for the optimization quick win; the switch is a scoped, quote-gated decision, not a toggle. High migration bar for a lean shop ~6–7 years into Avid.
+
+### Finding 13 — Company-Card Spend Runs on Manual Reconciliation; a Controlled Expense-Card Platform Would Automate It · *High Impact* · **[Added Jun 26]**
+- **The pain:** Joe's side uses credit cards (for points); one monthly statement **commingles Joe + Mark + Chris** purchases. Chad reconciles line-by-line, categorizes, splits by entity (Rochester/Crystal/Brian/Joe), and cuts Joe reimbursement checks. Darcy (Rochester) also has a card. Cards are effectively open — no category controls; one-offs (gas, truck repair, oil change, office snacks) mix with parts. Brian's side avoids cards (Avid + checks). So spend control and categorization are a manual, single-person burden, and the cards carry no guardrails.
+- **Recommendation:** a controlled expense-card platform (e.g., Ramp — free; revenue from merchant interchange) issues cards with category/merchant restrictions (e.g., hardware-stores-only for techs), mandatory receipt-photo capture with AI categorization, weekly approval, and automatic split/export by entity. It eliminates the manual statement-splitting, adds the spend guardrails the owners would want, and unlocks online ordering for the techs (ties F11). Per-user controls let Joe keep his points-style card while constraining the techs.
+- **Caveat:** Joe is the gatekeeper (it's his points habit) — adoption hinges on his buy-in. Net cost ≈ zero.
+- **Effort:** low–medium — account setup, card issuance, and a light approval habit; no RM change.
 
 **Operational notes (outside RM scope):** mixed appliance brands/models within a property add maintenance time; no defined turnover/remodel scope at acquisition drives "round one, then round two" rework.
 
@@ -157,13 +174,14 @@ One principle runs through all of it: the data Pergola is missing is the data th
 - **Utility GL coding** — standardize per-utility accounts before any reporting layer (F06).
 
 ### Tier 1 — Quick wins (team or RM rep, now)
-- Portal leases (F02) · Unit transfer path (F03) · Open-ticket triage (F04) · Electronic notices (F08) · Communication habits (F10) · Receipt-on-work-order (F11) · Real-lead tracker (F05).
+- Portal leases (F02) · Unit transfer path (F03) · Open-ticket triage (F04) · Electronic notices (F08) · Communication habits (F10) · Receipt-on-work-order (F11) · Real-lead tracker (F05) · **AvidPay cost optimization (F12)** — confirm the 50% threshold, shift checks → virtual card/ACH.
 
 ### Tier 2 — Phase 2 builds (Day54-delivered)
 - Utility anomaly dashboard off Zego (F01) · Leasing-funnel conversion view (F05) · Turnover system / native report (F09) · Parts & procurement, staged (F11) · Capital-planning analytics mining ~19K closed issues · the unifying **Operational Data Layer** across RM, Zego, AvidXchange.
+- **A/P platform decision (F12)** — quote RM Plus/Premium + Smart Bills against optimized Avid; switch only if it pencils out. **Expense-card rollout (F13)** — controlled cards with auto-categorization and entity splitting (decision/rollout, gated on Joe).
 - *Owner-stated support for capital-planning:* Joe already articulated the value — log drain calls per unit "to see a history of what's going wrong." The recurring-issue analysis is an unfulfilled directive, not a new idea to them.
 
-RM's AI add-ons (Orion AI, Smart Bills, Bank Sync) are a later footnote — revisit once the basics run *(and weigh against AvidXchange — Chad meeting)*.
+RM's AI add-ons (Orion AI, Smart Bills, Bank Sync) are evaluated under Finding 12 as the native alternative to AvidXchange — quote-gated, not a presumed switch. Other AI/marketing tooling remains a later footnote, revisited once the basics run.
 
 ---
 

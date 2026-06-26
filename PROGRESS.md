@@ -734,3 +734,43 @@ Full re-read of every unique Pergola interview transcript (kickoff, Jocelyn, Bob
 ### D. Deliverable working copy
 
 Created `Pergola_Deliverable_Working_Draft.md` - a separate, human-readable working version of the current deliverable with the A-section conclusions integrated and marked [Updated Jun 26], kept distinct from the formal `Pergola_Audit_Findings.docx` (the build_findings.js output). build_findings.js is NOT yet edited; the working draft is the staging ground until changes are finalized and then ported back into build_findings.js for the .docx rebuild.
+
+## 21. Session update - June 26, 2026 (Chad A/P meeting analysis + Orion/AvidXchange research)
+
+Processes the items parked in Section 20.C. Full analysis of the Jun 26 Chad call (AvidXchange invoice workflow), web research on Rent Manager Orion / Smart Bills vs AvidXchange, and the follow-up question set for Chad.
+
+### A. AvidXchange - current state at Pergola
+- Paperless A/P via AvidXchange since ~2019; Chad is sole admin. Flow: invoices in -> Chad categorizes + corrects AI -> approval -> batch-import to RM -> pay.
+- Approval has SIMPLIFIED: originally Joe/Brian (and former maintenance manager David Spar) approved; now Chad approves most himself, only large/unique/disputed route to Joe/Brian. (Matters for the Orion single-reviewer question.)
+- Payments: ACH autopays, paper checks (now CHARGED by Avid to mail, ~2-week lag), and VCCs (cheaper, vendor pays merchant fee, Pergola gets a small REBATE cut, cash leaves immediately, some vendors refuse them).
+- AI pains (Chad's core complaint): miscategorization; account-number dash vs no-dash duplicate-match bug; misreads "I" as "1"; DUPLICATE invoices paid twice; statements read as invoices; stylized fonts/logos trip it.
+- Cost: ~$700-800/mo per Chad, down from $1,000-1,200 (2023) - but he visibly CONFLATED check-count with dollars, so the figure is SOFT. Framed as "more than another $4K/yr" over RM.
+- Exception vendors bypass Avid: Menards, Home Depot statements, mortgage statements, Xcel Energy (mails paper -> scanned poorly, +1 week).
+- Intake: pergola@avidbill.com; one invoice per PDF (no combined PDFs/JPEGs/links). Approval-queue latency (Joe/Brian skip a month) -> late fees. Recent vendor split-billing produced a $22K single-property bill Chad caught by hand.
+
+### B. Orion / Smart Bills vs AvidXchange - research findings
+- AvidXchange = two products: AvidPay (payment rail) is NO-COST for RM users IF >=50% of payments route through AvidPay (~$4-6K/yr savings claimed); AvidInvoice (invoice capture + approval automation) is the PAID piece. So Pergola's ~$700-800/mo is almost certainly AvidInvoice + check-mailing fees; part may be recoverable with NO migration by confirming the 50% AvidPay threshold and shifting checks -> VCC/ACH.
+- Orion/Smart Bills (RM native AI A/P) replicates Avid (AI capture, vendor email intake, ACH/check/VCC via AvidPay) and adds Smart Receipts (mobile), Smart Check Scanning, Bank Sync + electronic reconciliation. THREE GATES: (1) requires RM Plus/Premium tier - Pergola is NOT on it, so switching = repricing the whole RM subscription, possibly > the Avid line it replaces (the make-or-break unknown); (2) single-reviewer approval ONLY (Avid does multi-tier) - probably fine given Chad-mostly approval, confirm no dual Joe+Brian requirement; (3) RM positions Smart Bills for low-moderate volume/in-house, Avid for med-high/outsourced/complex - need real invoice count.
+
+### C. Verdict / recommendation
+- Worth a QUOTE, not a presumed switch. The headline near-term money is OPTIMIZING Avid, not replacing it.
+- Sequence: (1) no-migration quick win - confirm AvidPay 50% status, shift checks -> VCC/ACH, right-size the bill; (2) get two quotes side by side: (RM Plus/Premium + Smart Bills) vs (current RM + optimized Avid); switch only if Orion total <= optimized-Avid total AND single-reviewer is sufficient; (3) ask RM whether Smart Bills (capture) can COEXIST with no-cost AvidPay (payment rail) - a best-of-both option (RM frames them as either/or). High migration bar for a lean shop ~6-7 years into Avid.
+
+### D. Follow-up questions for Chad (priority order)
+1. Get an ACTUAL recent Avid invoice; split it: AvidInvoice subscription vs check-mailing fees vs per-transaction fees.
+2. Are you on no-cost AvidPay - is >=50% of payments routed through AvidPay?
+3. VCC rebate % and per-check mailing fee (actual numbers, to model check -> VCC/ACH shift).
+4. Monthly INVOICE volume (not check count) - decides Smart Bills (low-mod) vs Avid (med-high) fit.
+5. Does any invoice REQUIRE two approvers (Joe AND Brian), or is Chad-only sufficient now?
+6. Exact current RM plan tier; have RM quote Plus/Premium + Smart Bills.
+7. Avid contract terms - minimums, overage structure, renewal/end date, early-termination.
+8. How many vendors still MAIL paper (Xcel et al.)? - a problem for either system, fix regardless.
+9. Joe's card setup - number of cards, monthly volume, and whether Joe would accept Ramp (he is the gatekeeper).
+- Brian/Joe items: PayLease access still blocked (Chad can't grant - Brian/Joe); confirm Joe has no utility-tracking desire (pays cities directly).
+
+### E. Deliverable changes (in working draft)
+- NEW Finding 12 (A/P: AvidXchange cost-optimization + Orion quote-not-switch), High Impact.
+- NEW Finding 13 (company-card spend -> controlled expense-card platform / Ramp), High Impact - reinforced by Chad's manual commingled-card split burden.
+- Feature-inventory: "Accounts Payable (native vs AvidXchange) - Investigate (Chad)" RESOLVED -> F12; Orion row -> "Investigate - quote vs AvidXchange (F12)".
+- Roadmap: AvidPay cost optimization added to Tier 1; A/P decision (Orion vs Avid quote) + Ramp rollout added to Tier 2.
+- build_findings.js still NOT edited; working draft remains the staging ground.
